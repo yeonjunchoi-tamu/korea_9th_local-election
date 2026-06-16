@@ -1,0 +1,13 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;padding:0;overflow:hidden">
+<canvas id="c" style="display:block"></canvas>
+<script>
+const W=window.innerWidth, H=window.innerHeight;
+const cv=document.getElementById('c');
+cv.width=W; cv.height=H; cv.style.width=W+'px'; cv.style.height=H+'px';
+const ctx=cv.getContext('2d',{alpha:false});
+const img=ctx.createImageData(W,H);
+for(let i=0;i<W*H;i++){ img.data[i*4]=(i*7)%256; img.data[i*4+1]=(i*13)%256; img.data[i*4+2]=(i*29)%256; img.data[i*4+3]=255; }
+ctx.putImageData(img,0,0);
+window.__exp={W,H};
+document.title='full '+W+'x'+H+' dpr'+window.devicePixelRatio;
+</script></body></html>
