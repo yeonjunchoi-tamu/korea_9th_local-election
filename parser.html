@@ -1,0 +1,69 @@
+<!doctype html><html><head><meta charset="utf-8"><title>builder</title>
+<script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+</head><body><pre id="log">building...</pre>
+<script>
+const STEMS={ '11':null,'26':'부산','27':'대구','28':'인천','29':'광주','30':'대전','31':'울산','36':'세종특별자치시','41':'경기도','42':'강원특별자치도','43':'충청북도','44':'충청남도','46':'전라남도','47':'경상북도','48':'경상남도','50':'제주특별자치도','52':'전북특별자치도' };
+const NAMES={ '11':'서울특별시','26':'부산광역시','27':'대구광역시','28':'인천광역시','29':'광주광역시','30':'대전광역시','31':'울산광역시','36':'세종특별자치시','41':'경기도','42':'강원특별자치도','43':'충청북도','44':'충청남도','46':'전라남도','47':'경상북도','48':'경상남도','50':'제주특별자치도','52':'전북특별자치도' };
+function parseSheet(rows){
+  const hdr=rows[1]||[]; const candCols=[]; const cands=[];
+  for(let c=4;c<hdr.length;c++){ const v=hdr[c];
+    if(v==null){ if(candCols.length) break; else continue; }
+    if(String(v).trim()==='계') break;
+    const parts=String(v).split(/\r?\n/).map(s=>s.trim()).filter(Boolean);
+    candCols.push(c); cands.push({party:parts[0], name:parts.slice(1).join(' ')||parts[0]});
+  }
+  const nc=candCols.length; const gv=r=>candCols.map(c=>+(r[c]||0));
+  let sgElect=0,sgVoters=0; const prx=new Array(nc).fill(0);
+  const dm=new Map(), order=[];
+  for(let i=2;i<rows.length;i++){ const r=rows[i]; if(!r) continue;
+    const a=(r[0]==null?'':String(r[0]).trim()), b=(r[1]==null?'':String(r[1]).trim());
+    if(a===''&&b==='') continue;
+    if(b===''){ if(a==='합계'){sgElect=+(r[2]||0);sgVoters=+(r[3]||0);} else { const v=gv(r); for(let k=0;k<nc;k++) prx[k]+=v[k]; } continue; }
+    if(!dm.has(a)){ dm.set(a,{name:a}); order.push(a); }
+    const D=dm.get(a);
+    if(b==='계'||b==='소계'){ D.electorate=+(r[2]||0); D.voters=+(r[3]||0); D.votes=gv(r); }
+    else if(b.indexOf('관내사전')===0){ D.pre=gv(r); }
+    else if(b.indexOf('선거일')===0){ D.day=gv(r); }
+  }
+  const dongs=order.map(nm=>{ const D=dm.get(nm); return { name:nm, electorate:D.electorate||0, voters:D.voters||0,
+    cands:cands.map((c,k)=>({party:c.party,name:c.name,votes:(D.votes?D.votes[k]:0)})),
+    pre:D.pre||new Array(nc).fill(0), day:D.day||new Array(nc).fill(0) }; });
+  return { cands, prx, sgElect, sgVoters, dongs };
+}
+async function buildCode(code){
+  const url = code==='11' ? 'raw/edu_seoul.xlsx' : ('uploads/'+('교육감선거_'+STEMS[code]+'.xlsx').normalize('NFD'));
+  const res=await fetch(url); if(!res.ok) throw new Error(code+' HTTP '+res.status);
+  const buf=await res.arrayBuffer(); const wb=XLSX.read(buf,{type:'array'});
+  const sigungu=[];
+  wb.SheetNames.forEach(sn=>{ const rows=XLSX.utils.sheet_to_json(wb.Sheets[sn],{header:1,defval:null}); const p=parseSheet(rows);
+    if(!p.cands.length||!p.dongs.length) return;
+    sigungu.push({ name:String(sn).trim(), electorate:p.sgElect, voters:p.sgVoters,
+      cands:p.cands.map((c,k)=>({party:c.party,name:c.name,votes:p.dongs.reduce((s,d)=>s+d.cands[k].votes,0)+p.prx[k]})),
+      prx:p.prx, dongs:p.dongs }); });
+  return { id:code, name:NAMES[code], sigungu };
+}
+async function run(){
+  const E={};
+  for(const code of Object.keys(STEMS)){ E[code]=await buildCode(code); document.getElementById('log').textContent='built '+code; }
+  // merge 29+46 -> 49 (전남·광주 통합 교육감, identical candidate set)
+  E['49']={ id:'49', name:'전남·광주통합특별시', sigungu:[...E['29'].sigungu, ...E['46'].sigungu] };
+  delete E['29']; delete E['46'];
+  // compact schema
+  const C={};
+  Object.keys(E).map(Number).sort((a,b)=>a-b).forEach(k=>{ const code=String(k); const s=E[code];
+    const cands=s.sigungu[0].cands.map(c=>[c.party,c.name]);
+    const sg=s.sigungu.map(g=>[ g.name, g.electorate||0, g.voters||0, g.prx,
+      g.dongs.map(d=>[ d.name, d.electorate||0, d.voters||0, d.cands.map(c=>c.votes), d.pre, d.day ]) ]);
+    C[code]=[s.name, cands, sg];
+  });
+  window.__EDU=E; window.__EDUC=C;
+  window.__EDUCSTR='window.VOTES_EDU_C='+JSON.stringify(C)+';';
+  // base64 of compact
+  const bytes=new TextEncoder().encode(window.__EDUCSTR); let bin=''; const CH=0x8000;
+  for(let i=0;i<bytes.length;i+=CH) bin+=String.fromCharCode.apply(null,bytes.subarray(i,i+CH));
+  window.__EDUCB64=btoa(bin);
+  window.__DONE={ codes:Object.keys(C), strBytes:window.__EDUCSTR.length, b64:window.__EDUCB64.length };
+  document.getElementById('log').textContent='DONE '+JSON.stringify(window.__DONE);
+}
+run().catch(e=>{ window.__ERR=String(e); document.getElementById('log').textContent='ERR '+e; });
+</script></body></html>
