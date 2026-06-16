@@ -152,6 +152,7 @@
   .cand__party{font-size:12px;color:var(--muted);}
   .cand__badge{font-size:10.5px;font-weight:700;color:#9be7b6;background:rgba(73,176,109,.16);
     padding:2px 7px;border-radius:6px;white-space:nowrap;flex:0 0 auto;}
+  .cand__badge--local{color:var(--muted);background:rgba(255,255,255,.08);}
   .cand__share{margin-left:auto;font-weight:800;font-size:15px;font-variant-numeric:tabular-nums;}
   .cand__track{height:8px;background:var(--bg2);border-radius:5px;overflow:hidden;}
   .cand__fill{height:100%;border-radius:5px;transition:width .5s cubic-bezier(.2,.7,.2,1);}
@@ -162,9 +163,30 @@
   /* national summary */
   .summarybar{display:flex;height:40px;border-radius:10px;overflow:hidden;margin:6px 0 18px;}
   .summarybar__seg{display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:13px;min-width:30px;}
+  .summarybar--prop .summarybar__seg{min-width:0;overflow:hidden;}
+  .summarybar--prop .summarybar__seg span{white-space:nowrap;padding:0 4px;}
   .summary__cards{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:18px;}
   .summary__card{display:flex;align-items:center;gap:11px;background:var(--bg2);border:1px solid var(--line);
     border-radius:11px;padding:13px 14px;}
+
+  /* 광역의회 의석 구성도 */
+  .seatarc{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:14px 14px 6px;margin:6px 0 14px;}
+  .seatlead{margin:0 0 16px;}
+  .seatlead__bar{display:flex;height:34px;border-radius:9px;overflow:hidden;}
+  .seatlead__on{display:flex;align-items:center;padding-left:14px;color:#fff;font-weight:800;font-size:14px;}
+  .seatlead__off{background:var(--panel2);}
+  .seattable{border:1px solid var(--line);border-radius:12px;overflow:hidden;}
+  .seattable__hd,.seattable__row{display:grid;grid-template-columns:1.5fr 1fr 1.1fr 1fr 1fr;align-items:center;}
+  .seattable__hd{background:var(--panel2);color:var(--muted);font-size:12px;font-weight:700;}
+  .seattable__hd span{padding:11px 8px;text-align:center;}
+  .seattable__hd span:first-child{text-align:left;padding-left:16px;}
+  .seattable__row{border-top:1px solid var(--line);font-size:14px;font-weight:700;color:var(--txt);}
+  .seattable__row span{padding:13px 8px;text-align:center;}
+  .seattable__party{text-align:left!important;padding-left:16px!important;}
+  .seattable__party b{display:inline-block;padding:4px 9px;border-radius:6px;font-size:12.5px;font-weight:800;}
+  .seattable__tot{font-weight:800;}
+  .seatnote{font-size:12.5px;color:var(--muted);line-height:1.7;margin:14px 2px 0;}
+  .seatnote b{color:var(--txt);}
   .summary__n{font-size:19px;font-weight:800;letter-spacing:-.02em;}
   .summary__p{font-size:12.5px;color:var(--muted);}
   .hint{font-size:13px;color:var(--muted);line-height:1.6;background:var(--bg2);border:1px solid var(--line);
@@ -193,8 +215,24 @@
   .pdc__meta{font-size:11px;color:var(--muted2);margin-top:11px;line-height:1.5;}
 
   /* layer toggle */
+  .sido-pills{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;}
+  .sido-pills button{background:var(--bg2);border:1px solid var(--line);color:var(--muted);font-family:inherit;white-space:nowrap;
+    font-size:13px;font-weight:700;padding:7px 14px;border-radius:9px;cursor:pointer;transition:color .12s, background .12s, border-color .12s;}
+  .sido-pills button:hover{color:var(--txt);}
+  .sido-pills button.is-on{background:var(--panel2);color:var(--txt);border-color:var(--line2);box-shadow:0 1px 3px rgba(0,0,0,.3);}
+  .sido-pills button .pilldot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:middle;}
+  .sido-pills button .mt-tag{font-size:10px;font-weight:700;padding:2px 6px;border-radius:5px;background:rgba(73,176,109,.16);color:#8fdcab;margin-left:5px;}
+  .na-distgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .na-distcard{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:9px;row-gap:3px;align-items:center;
+    background:var(--bg2);border:1px solid var(--line);border-radius:11px;padding:12px 13px;cursor:pointer;font-family:inherit;text-align:left;
+    transition:border-color .12s, background .12s;}
+  .na-distcard:hover{border-color:var(--line2);background:var(--panel2);}
+  .na-distcard__dot{grid-row:1 / span 2;width:11px;height:11px;border-radius:50%;}
+  .na-distcard__sido{font-size:11px;color:var(--muted);font-weight:700;letter-spacing:-.01em;}
+  .na-distcard__name{grid-column:2;font-size:15px;font-weight:800;color:var(--txt);letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .na-distcard__cand{grid-column:2;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;}
   .layer-toggle{display:flex;gap:6px;background:var(--bg2);border:1px solid var(--line);border-radius:11px;padding:4px;margin-bottom:14px;}
-  .layer-toggle button{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;background:none;border:none;
+  .layer-toggle button{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;background:none;border:none;white-space:nowrap;
     color:var(--muted);font-family:inherit;font-size:13px;font-weight:700;padding:9px 8px;border-radius:8px;cursor:pointer;}
   .layer-toggle button:hover{color:var(--txt);}
   .layer-toggle button.is-on{background:var(--panel2);color:var(--txt);box-shadow:0 1px 3px rgba(0,0,0,.3);}
@@ -254,436 +292,999 @@
 <script src="nation_geo.js"></script>
 <script src="votes.js"></script>
 <script src="votes_gu.js"></script>
+<script src="votes_gwang.js"></script>
 <script src="votes_guk.js"></script>
+<script src="votes_na.js"></script>
+<script src="votes_edu.js"></script>
+<script src="dong_geo.js"></script>
 <script src="data.js"></script>
 <script type="text/babel" src="app.jsx"></script>
 <script type="text/babel">
-(function(){
-const { useState } = React;
-const { SearchBar, RegionMap, Legend, Detail, NationalSummary, GuSummary, GukSummary, pathCenter } = window.UI;
-const { byKey, sidoList } = DATA;
-const KGEO = window.KOREA_GEO;
 
-/* 시·도 경계(전국 지도) + 중심점 */
-const kgeoById = {};
-KGEO.sido.forEach(s=>{ const [cx,cy]=pathCenter(s.path); kgeoById[s.id]={ ...s, cx, cy }; });
+(function () {
+  const { useState } = React;
+  const { SearchBar, RegionMap, Legend, Detail, NationalSummary, GuSummary, GukSummary, EduSummary, NaSummary, PartyDot, pathCenter } = window.UI;
+  const { byKey, sidoList } = DATA;
+  const KGEO = window.KOREA_GEO;
 
-const sidoC = (id)=> byKey['sido-'+id];
+  /* 시·도 경계(전국 지도) + 중심점 */
+  const kgeoById = {};
+  KGEO.sido.forEach((s) => {const [cx, cy] = pathCenter(s.path);kgeoById[s.id] = { ...s, cx, cy };});
 
-/* path d 문자열의 bbox */
-function bboxOf(d){
-  const n=d.match(/-?[\d.]+/g); if(!n) return null;
-  let a=1e9,b=1e9,c=-1e9,e=-1e9;
-  for(let i=0;i<n.length;i+=2){ const x=+n[i],y=+n[i+1]; if(x<a)a=x; if(x>c)c=x; if(y<b)b=y; if(y>e)e=y; }
-  return [a,b,c,e];
-}
-/* path d 의 모든 좌표쌍에 scale+translate 적용 (M/L/Z 절대좌표 전용) */
-function transformPath(d,s,tx,ty){
-  let i=0;
-  return d.replace(/-?[\d.]+/g, m=>{ const v=parseFloat(m); const out=(i%2===0)?(v*s+tx):(v*s+ty); i++; return out.toFixed(1); });
-}
+  const sidoC = (id) => byKey['sido-' + id];
 
-/* ── 전국 지도: 시·도별 1위 정당 색으로 통일(단색). 내부 세부 경계는 숨김. ── */
+  /* path d 문자열의 bbox */
+  function bboxOf(d) {
+    const n = d.match(/-?[\d.]+/g);if (!n) return null;
+    let a = 1e9,b = 1e9,c = -1e9,e = -1e9;
+    for (let i = 0; i < n.length; i += 2) {const x = +n[i],y = +n[i + 1];if (x < a) a = x;if (x > c) c = x;if (y < b) b = y;if (y > e) e = y;}
+    return [a, b, c, e];
+  }
+  /* path d 의 모든 좌표쌍에 scale+translate 적용 (M/L/Z 절대좌표 전용) */
+  function transformPath(d, s, tx, ty) {
+    let i = 0;
+    return d.replace(/-?[\d.]+/g, (m) => {const v = parseFloat(m);const out = i % 2 === 0 ? v * s + tx : v * s + ty;i++;return out.toFixed(1);});
+  }
 
-/* 전국 라벨 미세 보정(전국 viewBox 좌표, +x=오른쪽 / +y=아래) */
-const LABEL_NUDGE = {
-  '41':[6,18],   // 경기 — 서울과 겹치지 않게 더 아래로
-  '28':[-8,-6],  // 인천 — 서울·경기에서 살짝 떨어뜨림
-  '11':[0,-2],   // 서울
-  '44':[-15,0],  // 충남 — 살짝 왼쪽으로
-  '49':[4,-6],   // 전남·광주 — 본토 중앙 쪽으로
-  '47':[44,-60],  // 경북 — 중앙에서 오른쪽 위로
-};
+  /* ── 전국 지도: 시·도별 1위 정당 색으로 통일(단색). 내부 세부 경계는 숨김. ── */
 
-/* 전국 지도용 시·도 라벨 위치 = 읍·면·동 중심의 중앙값(섬·돌출부에 끌려가지 않음) + 미세 보정 */
-const nationalLabelPos = {};
-(function(){
-  const med=(arr)=>{ const s=[...arr].sort((x,y)=>x-y); return s[Math.floor(s.length/2)]; };
-  sidoList.forEach(s=>{
-    const sc=sidoC(s.id);
-    const nb=bboxOf(kgeoById[s.id].path); if(!nb) return;
-    // 로컬(시·도 내부 좌표계) 콘텐츠 bbox
-    let a=1e9,b=1e9,c=-1e9,e=-1e9;
-    sc.sigungu.forEach(sg=>sg.dongs.forEach(d=>{ if(d.geo){ const bb=bboxOf(d.geo.d); if(bb){ if(bb[0]<a)a=bb[0]; if(bb[1]<b)b=bb[1]; if(bb[2]>c)c=bb[2]; if(bb[3]>e)e=bb[3]; } } }));
-    if(a>c) return;
-    const lw=c-a, lh=e-b, nw=nb[2]-nb[0], nh=nb[3]-nb[1];
-    const scale=Math.min(nw/lw, nh/lh);
-    const tx=nb[0]+(nw-lw*scale)/2 - a*scale;
-    const ty=nb[1]+(nh-lh*scale)/2 - b*scale;
-    const xs=[], ys=[];
-    sc.sigungu.forEach(sg=>sg.dongs.forEach(d=>{ if(d.geo){ xs.push(d.geo.cx*scale+tx); ys.push(d.geo.cy*scale+ty); } }));
-    if(!xs.length) return;
-    const nud=LABEL_NUDGE[s.id]||[0,0];
-    nationalLabelPos[s.id]=[ med(xs)+nud[0], med(ys)+nud[1] ];
+  /* 전국 라벨 미세 보정(전국 viewBox 좌표, +x=오른쪽 / +y=아래) */
+  const LABEL_NUDGE = {
+    '41': [6, 18], // 경기 — 서울과 겹치지 않게 더 아래로
+    '28': [-8, -6], // 인천 — 서울·경기에서 살짝 떨어뜨림
+    '11': [0, -2], // 서울
+    '44': [-15, 0], // 충남 — 살짝 왼쪽으로
+    '49': [4, -6], // 전남·광주 — 본토 중앙 쪽으로
+    '47': [44, -60] // 경북 — 중앙에서 오른쪽 위로
+  };
+
+  /* ============================================================================
+     전국 읍·면·동 모자이크 (DONG_GEO · 행정안전부 2026.04 행정동)
+     ----------------------------------------------------------------------------
+     모든 시·도가 하나의 좌표계에 투영돼 빈틈 없이 맞물린다. 각 동을 선거결과에
+     이름으로 매칭해 1위 정당/성향 색으로 칠하고, 시·도(선거구) 경계선을 덧그린다.
+     ========================================================================== */
+  const DG = window.DONG_GEO;
+  const ELEC_SHORT = { '11': '서울', '26': '부산', '27': '대구', '28': '인천', '29': '광주', '30': '대전', '31': '울산', '36': '세종', '41': '경기', '42': '강원', '43': '충북', '44': '충남', '45': '전북', '46': '전남', '47': '경북', '48': '경남', '49': '전남·광주', '50': '제주', '51': '강원', '52': '전북' };
+  const xwalk = DATA.mosaic ? DATA.mosaic.xwalk : (s) => s;
+
+  /* 전국 지도 툴팁 = 해당 시·도 단위 결과(읍·면·동이 아니라). 색칠은 그대로 읍·면·동별. */
+  const govTip = (es) => {const c = DATA.byKey['sido-' + es];return c ? { result: c, tipName: c.regionName } : null;};
+  const eduTip = (es) => {const c = DATA.edu && DATA.edu.byKey['edusido-' + es];return c ? { result: c, tipName: c.regionName } : null;};
+  const gukDom = {};
+  if (DATA.guk) DATA.guk.sidoList.forEach((se) => {
+    const cnt = {};se.districts.forEach((d) => {cnt[d.winnerPartyId] = (cnt[d.winnerPartyId] || 0) + 1;});
+    let best = 'indep',bn = 0;for (const p in cnt) {if (cnt[p] > bn) {bn = cnt[p];best = p;}}
+    gukDom[se.id] = { result: { winnerPartyId: best, novote: false, aggInfo: { pid: best, seats: bn, total: se.districts.length } }, tipName: se.name };
   });
-})();
+  const gukTip = (es) => gukDom[es] || null;
 
-function GovExplorer(){
-  const [nav, setNav] = useState({ level:'national', sidoId:null, sgIndex:null });
-  const [sel, setSel] = useState({ contestKey:null, highlight:null });
+  /* 국회의원 재·보궐: 시·도별 최다 당선 정당(전국 지도 툴팁용) */
+  const naDom = {};
+  if (DATA.na) DATA.na.sidoList.forEach((se) => {
+    const cnt = {};se.districts.forEach((d) => {cnt[d.winnerPartyId] = (cnt[d.winnerPartyId] || 0) + 1;});
+    let best = 'indep',bn = 0;for (const p in cnt) {if (cnt[p] > bn) {bn = cnt[p];best = p;}}
+    naDom[se.id] = { result: { winnerPartyId: best, novote: false, aggInfo: { pid: best, seats: bn, total: se.districts.length } }, tipName: se.name };
+  });
+  const naTip = (es) => naDom[es] || null;
 
-  const goNational = ()=>{ setNav({level:'national',sidoId:null,sgIndex:null}); setSel({contestKey:null,highlight:null}); };
-  const goSido = (id)=>{ setNav({level:'sido',sidoId:id,sgIndex:null}); setSel({contestKey:'sido-'+id,highlight:null}); };
-  const goSigungu = (id,sgi)=>{ setNav({level:'sigungu',sidoId:id,sgIndex:sgi}); setSel({contestKey:'sg-'+id+'-'+sgi,highlight:null}); };
-  const selectDong = (key,hl=null)=>{ setSel({contestKey:key,highlight:hl}); };
+  /* which: 'gov'|'guk'|'edu' · bk: 데이터셋 byKey · hasSido(es) · sidoTip(es)→{result,tipName} */
+  function buildMosaic(which, bk, hasSido, sidoTip) {
+    const regions = [],outlines = [],labels = [];const ps = new Set();
+    if (!DG) return { regions, outlines, labels, parties: [] };
+    Object.keys(DG.sido).forEach((adm) => {
+      const es = xwalk(adm);
+      const tip = sidoTip ? sidoTip(es) : null;
+      DG.sido[adm].dongs.forEach((dn) => {
+        const rec = DATA.mosaicLookup ? DATA.mosaicLookup(which, adm, dn.sg, dn.nm) : null;
+        let result = null;
+        if (rec) {const c = bk[rec.key];result = c || { winnerPartyId: rec.pid, marginPct: rec.margin, novote: !!rec.novote };ps.add(rec.pid);}
+        regions.push({ key: which + '-' + adm + '-' + dn.cd, gid: es, path: dn.d, result,
+          tip: tip ? tip.result : null,
+          tipName: tip ? tip.tipName : (dn.sg ? dn.sg + ' ' : '') + dn.nm });
+      });
+    });
+    Object.keys(DG.outline).forEach((es) => {
+      if (hasSido && !hasSido(es)) return; // 데이터 없는 시·도는 경계선 생략(회색 메시만)
+      outlines.push({ gid: es, pid: 'indep', path: DG.outline[es] });
+      if (DG.label[es]) labels.push({ cx: DG.label[es][0], cy: DG.label[es][1], text: ELEC_SHORT[es] || es });
+    });
+    return { regions, outlines, labels, parties: [...ps] };
+  }
 
-  /* ---- 검색 결과 분기 ---- */
-  const onPick = (item)=>{
-    const single = sidoC(item.sidoId) && sidoC(item.sidoId).single;
-    if(item.kind==='region'){
-      if(item.level==='sido') goSido(item.sidoId);
-      else goSigungu(item.sidoId, item.sgIndex);
-    } else if(item.kind==='dong'){
-      if(single){ setNav({level:'sido',sidoId:item.sidoId,sgIndex:null}); }
-      else { setNav({level:'sigungu',sidoId:item.sidoId,sgIndex:item.sgIndex}); }
-      setSel({contestKey:item.contestKey,highlight:null});
-    } else if(item.kind==='candidate'){
-      const k=item.contestKey;
-      if(k.indexOf('sido-')===0){ setNav({level:'sido',sidoId:item.sidoId,sgIndex:null}); setSel({contestKey:k,highlight:item.candName}); }
-      else if(k.indexOf('sg-')===0){ setNav({level:'sigungu',sidoId:item.sidoId,sgIndex:item.sgIndex}); setSel({contestKey:k,highlight:item.candName}); }
-      else { // dong
-        if(single) setNav({level:'sido',sidoId:item.sidoId,sgIndex:null});
-        else setNav({level:'sigungu',sidoId:item.sidoId,sgIndex:item.sgIndex});
-        setSel({contestKey:k,highlight:item.candName});
-      }
-    }
+  /* 데이터 없는(회색) 시·도 경계 — 옅게 깔아 위치만 알려줌 */
+  function greyOutlines(hasSido) {
+    if (!DG) return [];
+    return Object.keys(DG.outline).filter((es) => !hasSido(es)).map((es) => ({ key: 'g' + es, path: DG.outline[es], fill: 'none', stroke: 'rgba(120,134,156,.20)', sw: 1.4 }));
+  }
+  function greyLabels(hasSido) {
+    if (!DG) return [];
+    return Object.keys(DG.label).filter((es) => !hasSido(es)).map((es) => ({ cx: DG.label[es][0], cy: DG.label[es][1], text: ELEC_SHORT[es] || es, dim: true }));
+  }
+
+  const MOSAIC = {
+    gov: buildMosaic('gov', DATA.byKey, null, govTip),
+    guk: DATA.guk ? buildMosaic('guk', DATA.guk.byKey, (es) => DATA.guk.byKey['guk-' + es + '-0'] != null, gukTip) : null,
+    edu: DATA.edu ? buildMosaic('edu', DATA.edu.byKey, (es) => DATA.edu.byKey['edusido-' + es] != null, eduTip) : null,
+    na: DATA.na ? buildMosaic('na', DATA.na.byKey, (es) => DATA.na.byKey['na-' + es + '-0'] != null, naTip) : null
   };
+  const NAT_VB = DG ? '0 0 ' + DG.vb[0] + ' ' + DG.vb[1] : '0 0 ' + KGEO.viewBox[0] + ' ' + KGEO.viewBox[1];
+  const NAT_FONT = DG ? +(DG.vb[0] / 120).toFixed(2) : 8;
+  const NAT_LBLFONT = DG ? +(DG.vb[0] / 56).toFixed(2) : 15;
 
-  const contest = sel.contestKey ? byKey[sel.contestKey] : null;
+  function GovExplorer() {
+    const [nav, setNav] = useState({ level: 'national', sidoId: null, sgIndex: null });
+    const [sel, setSel] = useState({ contestKey: null, highlight: null });
 
-  /* ---- 지도 구성 ---- */
-  let regions=[], labels=null, viewBox='0 0 1000 938', selectedGid=null, fontSize=8, labelFont=15, flat=false, caption='', outlines=null, list=null;
-  let legendParties=['minju','power','jokuk','reform','jinbo','indep'];
+    const goNational = () => {setNav({ level: 'national', sidoId: null, sgIndex: null });setSel({ contestKey: null, highlight: null });};
+    const goSido = (id) => {setNav({ level: 'sido', sidoId: id, sgIndex: null });setSel({ contestKey: 'sido-' + id, highlight: null });};
+    const goSigungu = (id, sgi) => {setNav({ level: 'sigungu', sidoId: id, sgIndex: sgi });setSel({ contestKey: 'sg-' + id + '-' + sgi, highlight: null });};
+    const selectDong = (key, hl = null) => {setSel({ contestKey: key, highlight: hl });};
 
-  const sidoSet = ()=>{ const set=new Set(); sidoList.forEach(s=>set.add(sidoC(s.id).winnerPartyId)); return set; };
+    /* ---- 검색 결과 분기 ---- */
+    const onPick = (item) => {
+      const single = sidoC(item.sidoId) && sidoC(item.sidoId).single;
+      if (item.kind === 'region') {
+        if (item.level === 'sido') goSido(item.sidoId);else
+        goSigungu(item.sidoId, item.sgIndex);
+      } else if (item.kind === 'dong') {
+        if (single) {setNav({ level: 'sido', sidoId: item.sidoId, sgIndex: null });} else
+        {setNav({ level: 'sigungu', sidoId: item.sidoId, sgIndex: item.sgIndex });}
+        setSel({ contestKey: item.contestKey, highlight: null });
+      } else if (item.kind === 'candidate') {
+        const k = item.contestKey;
+        if (k.indexOf('sido-') === 0) {setNav({ level: 'sido', sidoId: item.sidoId, sgIndex: null });setSel({ contestKey: k, highlight: item.candName });} else
+        if (k.indexOf('sg-') === 0) {setNav({ level: 'sigungu', sidoId: item.sidoId, sgIndex: item.sgIndex });setSel({ contestKey: k, highlight: item.candName });} else
+        {// dong
+          if (single) setNav({ level: 'sido', sidoId: item.sidoId, sgIndex: null });else
+          setNav({ level: 'sigungu', sidoId: item.sidoId, sgIndex: item.sgIndex });
+          setSel({ contestKey: k, highlight: item.candName });
+        }
+      }
+    };
 
-  if(nav.level==='national'){
-    flat=true; fontSize=+(KGEO.viewBox[0]/120).toFixed(2); labelFont=+(KGEO.viewBox[0]/68).toFixed(2);
-    viewBox='0 0 '+KGEO.viewBox[0]+' '+KGEO.viewBox[1];
-    regions = sidoList.map(s=>{ const c=sidoC(s.id); const k=kgeoById[s.id]; const op=(window.SIDO_OUTLINE&&window.SIDO_OUTLINE[s.id])||k.path; return { key:s.id, gid:s.id, path:op, result:c, tipName:c.regionName }; });
-    labels = sidoList.map(s=>{ const k=kgeoById[s.id]; const p=nationalLabelPos[s.id]; return { cx:p?p[0]:k.cx, cy:p?p[1]:k.cy, text:k.short }; });
-    selectedGid = (contest&&contest.level==='sido')?contest.sidoId:null;
-    caption='전국 시·도별 1위 정당 · 실제 개표 데이터(중앙선관위) · 채도 = 격차';
-    legendParties=[...sidoSet()];
-    list={ title:'시·도', items: sidoList.map(s=>{ const c=sidoC(s.id); return { key:s.id, gid:s.id, label:c.regionName, pid:c.winnerPartyId, share:c.candidates[0].share, on:()=>goSido(s.id) }; }).sort((a,b)=>a.label.localeCompare(b.label,'ko')) };
-  } else {
-    const sc = sidoC(nav.sidoId);
-    const single = sc.single;
-    if(nav.level==='sido' && !single){
-      /* 시·군·구로 묶되, 칠은 읍·면·동별 1위 → 클릭 시 시·군·구로 */
-      viewBox='0 0 '+sc.vb[0]+' '+sc.vb[1];
-      fontSize=+(sc.vb[0]/220).toFixed(3); labelFont=+(sc.vb[0]/52).toFixed(2);
-      sc.sigungu.forEach((sg,sgi)=>{ sg.dongs.forEach(d=>{ if(d.geo) regions.push({ key:d.key, gid:'sg'+sgi, path:d.geo.d, result:sg, fillRes:d, tipName:sg.regionName }); }); });
-      labels = sc.sigungu.filter(sg=>sg.geo).map(sg=>({ cx:sg.geo.cx, cy:sg.geo.cy, text:sg.sggName }));
-      caption=sc.regionName+' · 읍·면·동별 1위 정당 · 클릭하면 시·군·구별 개표로';
-      const ps=new Set(); sc.sigungu.forEach(sg=>sg.dongs.forEach(d=>{ if(d.geo) ps.add(d.winnerPartyId); })); legendParties=[...ps];
-      list={ title:'시·군·구', items: sc.sigungu.map((sg,sgi)=>({ key:'sg'+sgi, gid:'sg'+sgi, label:sg.sggName, pid:sg.winnerPartyId, share:sg.candidates[0].share, on:()=>goSigungu(nav.sidoId,sgi) })).sort((a,b)=>a.label.localeCompare(b.label,'ko')) };
+    const contest = sel.contestKey ? byKey[sel.contestKey] : null;
+
+    /* ---- 지도 구성 ---- */
+    let regions = [],labels = null,viewBox = '0 0 1000 938',selectedGid = null,fontSize = 8,labelFont = 15,flat = false,caption = '',outlines = null,list = null,staticMosaic = false;
+    let legendParties = ['minju', 'power', 'jokuk', 'reform', 'jinbo', 'indep'];
+
+    const sidoSet = () => {const set = new Set();sidoList.forEach((s) => set.add(sidoC(s.id).winnerPartyId));return set;};
+
+    if (nav.level === 'national') {
+      flat = true;fontSize = NAT_FONT;labelFont = NAT_LBLFONT;
+      viewBox = NAT_VB;
+      regions = MOSAIC.gov.regions;
+      outlines = MOSAIC.gov.outlines;
+      staticMosaic = true;
+      labels = MOSAIC.gov.labels;
+      selectedGid = contest && contest.level === 'sido' ? contest.sidoId : null;
+      caption = '전국 읍·면·동별 1위 정당 · 실제 개표 데이터(중앙선관위) · 채도 = 격차';
+      legendParties = MOSAIC.gov.parties;
+      list = { title: '시·도', items: sidoList.map((s) => {const c = sidoC(s.id);return { key: s.id, gid: s.id, label: c.regionName, pid: c.winnerPartyId, share: c.candidates[0].share, on: () => goSido(s.id) };}).sort((a, b) => a.label.localeCompare(b.label, 'ko')) };
     } else {
-      /* 읍·면·동 단위 (sigungu 화면, 또는 세종 같은 단층 시·도) */
-      const sg = single ? sc.sigungu[0] : sc.sigungu[nav.sgIndex];
-      if(single){ viewBox='0 0 '+sc.vb[0]+' '+sc.vb[1]; labelFont=+(sc.vb[0]/40).toFixed(2); fontSize=+(sc.vb[0]/220).toFixed(3); }
-      else {
-        const bb = sg.geo ? sg.geo.bbox : [0,0,sc.vb[0],sc.vb[1]];
-        const pad=Math.max(bb[2]-bb[0],bb[3]-bb[1])*0.04+2;
-        const w=(bb[2]-bb[0])+2*pad, h=(bb[3]-bb[1])+2*pad;
-        viewBox=(bb[0]-pad).toFixed(1)+' '+(bb[1]-pad).toFixed(1)+' '+w.toFixed(1)+' '+h.toFixed(1);
-        labelFont=+(w/30).toFixed(2); fontSize=+(w/180).toFixed(3);
+      const sc = sidoC(nav.sidoId);
+      const single = sc.single;
+      if (nav.level === 'sido' && !single) {
+        /* 시·군·구로 묶되, 칠은 읍·면·동별 1위 → 클릭 시 시·군·구로 */
+        viewBox = '0 0 ' + sc.vb[0] + ' ' + sc.vb[1];
+        fontSize = +(sc.vb[0] / 220).toFixed(3);labelFont = +(sc.vb[0] / 52).toFixed(2);
+        sc.sigungu.forEach((sg, sgi) => {sg.dongs.forEach((d) => {if (d.geo) regions.push({ key: d.key, gid: 'sg' + sgi, path: d.geo.d, result: sg, fillRes: d, tipName: sg.regionName });});});
+        labels = sc.sigungu.filter((sg) => sg.geo).map((sg) => ({ cx: sg.geo.cx, cy: sg.geo.cy, text: sg.sggName }));
+        caption = sc.regionName + ' · 읍·면·동별 1위 정당 · 클릭하면 시·군·구별 개표로';
+        const ps = new Set();sc.sigungu.forEach((sg) => sg.dongs.forEach((d) => {if (d.geo) ps.add(d.winnerPartyId);}));legendParties = [...ps];
+        list = { title: '시·군·구', items: sc.sigungu.map((sg, sgi) => ({ key: 'sg' + sgi, gid: 'sg' + sgi, label: sg.sggName, pid: sg.winnerPartyId, share: sg.candidates[0].share, on: () => goSigungu(nav.sidoId, sgi) })).sort((a, b) => a.label.localeCompare(b.label, 'ko')) };
+      } else {
+        /* 읍·면·동 단위 (sigungu 화면, 또는 세종 같은 단층 시·도) */
+        const sg = single ? sc.sigungu[0] : sc.sigungu[nav.sgIndex];
+        if (single) {viewBox = '0 0 ' + sc.vb[0] + ' ' + sc.vb[1];labelFont = +(sc.vb[0] / 40).toFixed(2);fontSize = +(sc.vb[0] / 220).toFixed(3);} else
+        {
+          const bb = sg.geo ? sg.geo.bbox : [0, 0, sc.vb[0], sc.vb[1]];
+          const pad = Math.max(bb[2] - bb[0], bb[3] - bb[1]) * 0.04 + 2;
+          const w = bb[2] - bb[0] + 2 * pad,h = bb[3] - bb[1] + 2 * pad;
+          viewBox = (bb[0] - pad).toFixed(1) + ' ' + (bb[1] - pad).toFixed(1) + ' ' + w.toFixed(1) + ' ' + h.toFixed(1);
+          labelFont = +(w / 30).toFixed(2);fontSize = +(w / 180).toFixed(3);
+        }
+        sg.dongs.forEach((d) => {if (d.geo) regions.push({ key: d.key, gid: d.key, path: d.geo.d, result: d, tipName: d.dongName });});
+        labels = sg.dongs.filter((d) => d.geo).map((d) => ({ cx: d.geo.cx, cy: d.geo.cy, text: d.dongName }));
+        selectedGid = contest && contest.level === 'dong' ? contest.key : null;
+        caption = (single ? sc.regionName : sc.regionName + ' ' + sg.sggName) + ' · 읍·면·동별 1위 · 채도 = 격차';
+        const ps = new Set();sg.dongs.forEach((d) => ps.add(d.winnerPartyId));legendParties = [...ps];
+        list = { title: '읍·면·동', items: sg.dongs.map((d) => ({ key: d.key, gid: d.key, label: d.dongName, pid: d.winnerPartyId, share: d.candidates[0].share, on: () => selectDong(d.key) })).sort((a, b) => a.label.localeCompare(b.label, 'ko')) };
       }
-      sg.dongs.forEach(d=>{ if(d.geo) regions.push({ key:d.key, gid:d.key, path:d.geo.d, result:d, tipName:d.dongName }); });
-      labels = sg.dongs.filter(d=>d.geo).map(d=>({ cx:d.geo.cx, cy:d.geo.cy, text:d.dongName }));
-      selectedGid = (contest&&contest.level==='dong')?contest.key:null;
-      caption=(single?sc.regionName:sc.regionName+' '+sg.sggName)+' · 읍·면·동별 1위 · 채도 = 격차';
-      const ps=new Set(); sg.dongs.forEach(d=>ps.add(d.winnerPartyId)); legendParties=[...ps];
-      list={ title:'읍·면·동', items: sg.dongs.map(d=>({ key:d.key, gid:d.key, label:d.dongName, pid:d.winnerPartyId, share:d.candidates[0].share, on:()=>selectDong(d.key) })).sort((a,b)=>a.label.localeCompare(b.label,'ko')) };
     }
-  }
 
-  const onSelect = (r)=>{
-    if(nav.level==='national') goSido(r.gid);
-    else if(nav.level==='sido' && !sidoC(nav.sidoId).single){ const sgi=+r.gid.slice(2); goSigungu(nav.sidoId,sgi); }
-    else selectDong(r.key);
-  };
+    const onSelect = (r) => {
+      if (nav.level === 'national') {if (sidoC(r.gid)) goSido(r.gid);} else
+      if (nav.level === 'sido' && !sidoC(nav.sidoId).single) {const sgi = +r.gid.slice(2);goSigungu(nav.sidoId, sgi);} else
+      selectDong(r.key);
+    };
 
-  /* ---- 상세 패널 back ---- */
-  let back=null, backLabel='';
-  if(contest){
-    if(contest.level==='dong'){
-      const sc2=sidoC(contest.sidoId);
-      if(sc2.single){ back=()=>{ setNav({level:'sido',sidoId:contest.sidoId,sgIndex:null}); setSel({contestKey:'sido-'+contest.sidoId,highlight:null}); }; backLabel=sc2.regionName; }
-      else { back=()=>goSigungu(contest.sidoId,contest.sgIndex); backLabel=sc2.sigungu[contest.sgIndex].sggName; }
-    } else if(contest.level==='sigungu'){ back=()=>goSido(contest.sidoId); backLabel=sidoC(contest.sidoId).regionName; }
-    else if(contest.level==='sido'){ back=goNational; backLabel='전국'; }
-  }
+    /* ---- 상세 패널 back ---- */
+    let back = null,backLabel = '';
+    if (contest) {
+      if (contest.level === 'dong') {
+        const sc2 = sidoC(contest.sidoId);
+        if (sc2.single) {back = () => {setNav({ level: 'sido', sidoId: contest.sidoId, sgIndex: null });setSel({ contestKey: 'sido-' + contest.sidoId, highlight: null });};backLabel = sc2.regionName;} else
+        {back = () => goSigungu(contest.sidoId, contest.sgIndex);backLabel = sc2.sigungu[contest.sgIndex].sggName;}
+      } else if (contest.level === 'sigungu') {back = () => goSido(contest.sidoId);backLabel = sidoC(contest.sidoId).regionName;} else
+      if (contest.level === 'sido') {back = goNational;backLabel = '전국';}
+    }
 
-  /* ---- breadcrumb ---- */
-  const cur = nav.sidoId!=null ? sidoC(nav.sidoId) : null;
-  const dongSel = contest && contest.level==='dong' ? contest : null;
-  const sgName = (nav.level==='sigungu' && cur && !cur.single) ? cur.sigungu[nav.sgIndex].sggName
-                : (dongSel && !sidoC(dongSel.sidoId).single ? sidoC(dongSel.sidoId).sigungu[dongSel.sgIndex].sggName : null);
+    /* ---- breadcrumb ---- */
+    const cur = nav.sidoId != null ? sidoC(nav.sidoId) : null;
+    const dongSel = contest && contest.level === 'dong' ? contest : null;
+    const sgName = nav.level === 'sigungu' && cur && !cur.single ? cur.sigungu[nav.sgIndex].sggName :
+    dongSel && !sidoC(dongSel.sidoId).single ? sidoC(dongSel.sidoId).sigungu[dongSel.sgIndex].sggName : null;
 
-  return (<>
+    return <>
       <SearchBar onPick={onPick} />
 
       <div className="grid">
         <div className="card">
           <div className="crumbs">
             <button onClick={goNational}>대한민국</button>
-            {cur && <><span className="sep">›</span>{nav.level==='sido' && !dongSel ? <span className="cur">{cur.regionName}</span> : <button onClick={()=>goSido(nav.sidoId)}>{cur.regionName}</button>}</>}
-            {sgName && <><span className="sep">›</span>{dongSel ? <button onClick={()=>goSigungu(nav.sidoId, dongSel.sgIndex)}>{sgName}</button> : <span className="cur">{sgName}</span>}</>}
+            {cur && <><span className="sep">›</span>{nav.level === 'sido' && !dongSel ? <span className="cur">{cur.regionName}</span> : <button onClick={() => goSido(nav.sidoId)}>{cur.regionName}</button>}</>}
+            {sgName && <><span className="sep">›</span>{dongSel ? <button onClick={() => goSigungu(nav.sidoId, dongSel.sgIndex)}>{sgName}</button> : <span className="cur">{sgName}</span>}</>}
             {dongSel && <><span className="sep">›</span><span className="cur">{dongSel.dongName}</span></>}
           </div>
           <RegionMap regions={regions} labels={labels} viewBox={viewBox} onSelect={onSelect}
-            selectedGid={selectedGid} fontSize={fontSize} labelFont={labelFont} flat={flat} label={caption} outlines={outlines} list={list} />
+          selectedGid={selectedGid} fontSize={fontSize} labelFont={labelFont} flat={flat} label={caption} outlines={outlines} list={list} staticMosaic={staticMosaic} />
           <Legend parties={legendParties} />
         </div>
 
         <div className="card">
-          {contest
-            ? <Detail contest={contest} highlightName={sel.highlight} onBack={back} backLabel={backLabel}
-                hint={contest.level==='sido' ? '지도에서 시·군·구를 클릭하면 읍·면·동까지 들어갈 수 있어요.' : (contest.level==='sigungu' ? '지도에서 읍·면·동을 클릭하면 동별 개표 결과를 볼 수 있어요.' : null)} />
-            : <NationalSummary />}
+          {contest ?
+          <Detail contest={contest} highlightName={sel.highlight} onBack={back} backLabel={backLabel}
+          hint={contest.level === 'sido' ? '지도에서 시·군·구를 클릭하면 읍·면·동까지 들어갈 수 있어요.' : contest.level === 'sigungu' ? '지도에서 읍·면·동을 클릭하면 동별 개표 결과를 볼 수 있어요.' : null} /> :
+          <NationalSummary />}
         </div>
       </div>
 
       <div className="footer">
-        <b>데이터</b> — 중앙선관위 <b>시·도지사 선거 읍·면·동별 개표 엑셀</b>을 그대로 집계했습니다. 광역(시·도) → 시·군·구 → 읍·면·동 3단계 모두 실제 수치입니다.<br/>
-        <b>전남·광주통합특별시</b>는 광주광역시 5개 자치구 + 전라남도 22개 시·군을 통합했습니다. 세종특별자치시는 시·군·구가 없어 시 → 읍·면·동 2단계입니다.<br/>
+        <b>데이터</b> — 중앙선관위 <b>시·도지사 선거 읍·면·동별 개표 엑셀</b>을 그대로 집계했습니다. 광역(시·도) → 시·군·구 → 읍·면·동 3단계 모두 실제 수치입니다.<br />
+        <b>전남·광주통합특별시</b>는 광주광역시 5개 자치구 + 전라남도 22개 시·군을 통합했습니다. 세종특별자치시는 시·군·구가 없어 시 → 읍·면·동 2단계입니다.<br />
         행정구역 경계: 행정안전부 행정동 경계 2026.04.01 기준.
       </div>
-  </>);
-}
-
-/* ====================== 서울 구청장(시·군·구의장) 탐색기 ====================== */
-function GuExplorer(){
-  const GU = DATA.gu;
-  const guC = (gi)=> GU.byKey['gu-'+gi];
-  const [nav, setNav] = useState({ level:'overview', guIdx:null });
-  const [sel, setSel] = useState({ contestKey:null, highlight:null });
-
-  const goOverview = ()=>{ setNav({level:'overview',guIdx:null}); setSel({contestKey:null,highlight:null}); };
-  const goGu = (gi)=>{ setNav({level:'gu',guIdx:gi}); setSel({contestKey:'gu-'+gi,highlight:null}); };
-  const selectDong = (key,hl=null)=>{ setSel({contestKey:key,highlight:hl}); };
-
-  const onPick = (item)=>{
-    if(item.kind==='region'){ goGu(item.guIndex); }
-    else if(item.kind==='dong'){ setNav({level:'gu',guIdx:item.guIndex}); setSel({contestKey:item.contestKey,highlight:null}); }
-    else if(item.kind==='candidate'){ setNav({level:'gu',guIdx:item.guIndex}); setSel({contestKey:item.contestKey,highlight:item.candName}); }
-  };
-
-  const contest = sel.contestKey ? GU.byKey[sel.contestKey] : null;
-  const vb = GU.seoulVb;
-  let regions=[], labels=null, viewBox='0 0 '+vb[0]+' '+vb[1], selectedGid=null;
-  let fontSize=+(vb[0]/220).toFixed(3), labelFont=+(vb[0]/52).toFixed(2), caption='', list=null, legendParties=[];
-
-  if(nav.level==='overview'){
-    GU.guList.forEach(g=>{ const gc=guC(g.guIndex); gc.dongs.forEach(d=>{ if(d.geo) regions.push({ key:d.key, gid:'gu'+g.guIndex, path:d.geo.d, result:gc, fillRes:gc, tipName:g.name }); }); });
-    labels = GU.guList.filter(g=>guC(g.guIndex).geo).map(g=>({ cx:guC(g.guIndex).geo.cx, cy:guC(g.guIndex).geo.cy, text:g.name }));
-    selectedGid = (contest&&contest.level==='gu')?'gu'+contest.guIndex:null;
-    caption='서울 자치구별 구청장 당선 정당 · 클릭하면 읍·면·동 개표로';
-    const ps=new Set(); GU.guList.forEach(g=>ps.add(guC(g.guIndex).winnerPartyId)); legendParties=[...ps];
-    list={ title:'자치구', items: GU.guList.map(g=>{ const gc=guC(g.guIndex); return { key:'gu'+g.guIndex, gid:'gu'+g.guIndex, label:g.name, pid:gc.winnerPartyId, share:gc.candidates[0].share, on:()=>goGu(g.guIndex) }; }).sort((a,b)=>a.label.localeCompare(b.label,'ko')) };
-  } else {
-    const gc=guC(nav.guIdx);
-    const bb = gc.geo ? gc.geo.bbox : [0,0,vb[0],vb[1]];
-    const pad=Math.max(bb[2]-bb[0],bb[3]-bb[1])*0.04+2;
-    const w=(bb[2]-bb[0])+2*pad, h=(bb[3]-bb[1])+2*pad;
-    viewBox=(bb[0]-pad).toFixed(1)+' '+(bb[1]-pad).toFixed(1)+' '+w.toFixed(1)+' '+h.toFixed(1);
-    labelFont=+(w/30).toFixed(2); fontSize=+(w/180).toFixed(3);
-    gc.dongs.forEach(d=>{ if(d.geo) regions.push({ key:d.key, gid:d.key, path:d.geo.d, result:d, tipName:d.dongName }); });
-    labels = gc.dongs.filter(d=>d.geo).map(d=>({ cx:d.geo.cx, cy:d.geo.cy, text:d.dongName }));
-    selectedGid=(contest&&contest.level==='gudong')?contest.key:null;
-    caption=gc.regionName+' · 읍·면·동별 구청장 1위 · 채도 = 격차';
-    const ps=new Set(); gc.dongs.forEach(d=>ps.add(d.winnerPartyId)); legendParties=[...ps];
-    list={ title:'읍·면·동', items: gc.dongs.map(d=>({ key:d.key, gid:d.key, label:d.dongName, pid:d.winnerPartyId, share:d.candidates[0].share, on:()=>selectDong(d.key) })).sort((a,b)=>a.label.localeCompare(b.label,'ko')) };
+  </>;
   }
 
-  const onSelect = (r)=>{ if(nav.level==='overview') goGu(+r.gid.slice(2)); else selectDong(r.key); };
+  /* ====================== 서울 구청장(시·군·구의장) 탐색기 ====================== */
+  function GuExplorer() {
+    const GU = DATA.gu;
+    const guC = (gi) => GU.byKey['gu-' + gi];
+    const [nav, setNav] = useState({ level: 'overview', guIdx: null });
+    const [sel, setSel] = useState({ contestKey: null, highlight: null });
 
-  let back=null, backLabel='';
-  if(contest){
-    if(contest.level==='gudong'){ back=()=>goGu(contest.guIndex); backLabel=guC(contest.guIndex).guName; }
-    else if(contest.level==='gu'){ back=goOverview; backLabel='서울 구청장'; }
-  }
+    const goOverview = () => {setNav({ level: 'overview', guIdx: null });setSel({ contestKey: null, highlight: null });};
+    const goGu = (gi) => {setNav({ level: 'gu', guIdx: gi });setSel({ contestKey: 'gu-' + gi, highlight: null });};
+    const selectDong = (key, hl = null) => {setSel({ contestKey: key, highlight: hl });};
 
-  const curGu = nav.guIdx!=null ? guC(nav.guIdx) : (contest && contest.guIndex!=null ? guC(contest.guIndex) : null);
-  const dongSel = contest && contest.level==='gudong' ? contest : null;
+    const onPick = (item) => {
+      if (item.kind === 'region') {goGu(item.guIndex);} else
+      if (item.kind === 'dong') {setNav({ level: 'gu', guIdx: item.guIndex });setSel({ contestKey: item.contestKey, highlight: null });} else
+      if (item.kind === 'candidate') {setNav({ level: 'gu', guIdx: item.guIndex });setSel({ contestKey: item.contestKey, highlight: item.candName });}
+    };
 
-  return (<>
+    const contest = sel.contestKey ? GU.byKey[sel.contestKey] : null;
+    const vb = GU.seoulVb;
+    let regions = [],labels = null,viewBox = '0 0 ' + vb[0] + ' ' + vb[1],selectedGid = null;
+    let fontSize = +(vb[0] / 220).toFixed(3),labelFont = +(vb[0] / 52).toFixed(2),caption = '',list = null,legendParties = [];
+
+    if (nav.level === 'overview') {
+      GU.guList.forEach((g) => {const gc = guC(g.guIndex);gc.dongs.forEach((d) => {if (d.geo) regions.push({ key: d.key, gid: 'gu' + g.guIndex, path: d.geo.d, result: gc, fillRes: gc, tipName: g.name });});});
+      labels = GU.guList.filter((g) => guC(g.guIndex).geo).map((g) => ({ cx: guC(g.guIndex).geo.cx, cy: guC(g.guIndex).geo.cy, text: g.name }));
+      selectedGid = contest && contest.level === 'gu' ? 'gu' + contest.guIndex : null;
+      caption = '서울 자치구별 구청장 당선 정당 · 클릭하면 읍·면·동 개표로';
+      const ps = new Set();GU.guList.forEach((g) => ps.add(guC(g.guIndex).winnerPartyId));legendParties = [...ps];
+      list = { title: '자치구', items: GU.guList.map((g) => {const gc = guC(g.guIndex);return { key: 'gu' + g.guIndex, gid: 'gu' + g.guIndex, label: g.name, pid: gc.winnerPartyId, share: gc.candidates[0].share, on: () => goGu(g.guIndex) };}).sort((a, b) => a.label.localeCompare(b.label, 'ko')) };
+    } else {
+      const gc = guC(nav.guIdx);
+      const bb = gc.geo ? gc.geo.bbox : [0, 0, vb[0], vb[1]];
+      const pad = Math.max(bb[2] - bb[0], bb[3] - bb[1]) * 0.04 + 2;
+      const w = bb[2] - bb[0] + 2 * pad,h = bb[3] - bb[1] + 2 * pad;
+      viewBox = (bb[0] - pad).toFixed(1) + ' ' + (bb[1] - pad).toFixed(1) + ' ' + w.toFixed(1) + ' ' + h.toFixed(1);
+      labelFont = +(w / 30).toFixed(2);fontSize = +(w / 180).toFixed(3);
+      gc.dongs.forEach((d) => {if (d.geo) regions.push({ key: d.key, gid: d.key, path: d.geo.d, result: d, tipName: d.dongName });});
+      labels = gc.dongs.filter((d) => d.geo).map((d) => ({ cx: d.geo.cx, cy: d.geo.cy, text: d.dongName }));
+      selectedGid = contest && contest.level === 'gudong' ? contest.key : null;
+      caption = gc.regionName + ' · 읍·면·동별 구청장 1위 · 채도 = 격차';
+      const ps = new Set();gc.dongs.forEach((d) => ps.add(d.winnerPartyId));legendParties = [...ps];
+      list = { title: '읍·면·동', items: gc.dongs.map((d) => ({ key: d.key, gid: d.key, label: d.dongName, pid: d.winnerPartyId, share: d.candidates[0].share, on: () => selectDong(d.key) })).sort((a, b) => a.label.localeCompare(b.label, 'ko')) };
+    }
+
+    const onSelect = (r) => {if (nav.level === 'overview') goGu(+r.gid.slice(2));else selectDong(r.key);};
+
+    let back = null,backLabel = '';
+    if (contest) {
+      if (contest.level === 'gudong') {back = () => goGu(contest.guIndex);backLabel = guC(contest.guIndex).guName;} else
+      if (contest.level === 'gu') {back = goOverview;backLabel = '서울 구청장';}
+    }
+
+    const curGu = nav.guIdx != null ? guC(nav.guIdx) : contest && contest.guIndex != null ? guC(contest.guIndex) : null;
+    const dongSel = contest && contest.level === 'gudong' ? contest : null;
+
+    return <>
       <SearchBar onPick={onPick} index={GU.searchIndex} placeholder="구청장 후보 · 자치구 · 읍·면·동 검색  (예: 종로구, 김길성, 청운효자동)" />
       <div className="grid">
         <div className="card">
           <div className="crumbs">
             <button onClick={goOverview}>서울 구청장</button>
-            {curGu && <><span className="sep">›</span>{nav.level==='gu' && !dongSel ? <span className="cur">{curGu.guName}</span> : <button onClick={()=>goGu(curGu.guIndex)}>{curGu.guName}</button>}</>}
+            {curGu && <><span className="sep">›</span>{nav.level === 'gu' && !dongSel ? <span className="cur">{curGu.guName}</span> : <button onClick={() => goGu(curGu.guIndex)}>{curGu.guName}</button>}</>}
+            {dongSel && <><span className="sep">›</span><span className="cur">{dongSel.dongName}</span></>}
+          </div>
+          <RegionMap regions={regions} labels={labels} viewBox={viewBox} onSelect={onSelect}
+          selectedGid={selectedGid} fontSize={fontSize} labelFont={labelFont} flat={false} label={caption} list={list} />
+          <Legend parties={legendParties} />
+        </div>
+        <div className="card">
+          {contest ?
+          <Detail contest={contest} highlightName={sel.highlight} onBack={back} backLabel={backLabel}
+          hint={contest.level === 'gu' ? '지도에서 읍·면·동을 클릭하면 동별 구청장 개표를 볼 수 있어요.' : null} /> :
+          <GuSummary />}
+        </div>
+      </div>
+      <div className="footer">
+        <b>데이터</b> — 중앙선관위 <b>구·시·군의 장 선거 읍·면·동별 개표 엑셀(서울)</b>을 그대로 집계했습니다. 서울 25개 자치구 → 읍·면·동 2단계 모두 실제 수치입니다.<br />
+        각 자치구는 자체 구청장 후보로 경쟁하며, 사전투표(관내·관외·거소)와 본투표(선거일)를 후보별로 비교할 수 있습니다.<br />
+        행정구역 경계: 행정안전부 행정동 경계 2026.04.01 기준.
+      </div>
+  </>;
+  }
+
+  /* ====================== 시·군·구의장(전국) 탐색기 ====================== */
+  function GukExplorer() {
+    const G = DATA.guk;
+    const shortById = {};KGEO.sido.forEach((s) => {shortById[s.id] = s.short;});
+    const sidoById = {};G.sidoList.forEach((se) => {sidoById[se.id] = se;});
+    const distKey = (code, si) => 'guk-' + code + '-' + si;
+    const dominant = (se) => {const c = {};se.districts.forEach((d) => {c[d.winnerPartyId] = (c[d.winnerPartyId] || 0) + 1;});let best = 'indep',bn = 0;for (const p in c) {if (c[p] > bn) {bn = c[p];best = p;}}return { pid: best, share: se.districts.length ? bn / se.districts.length : 0 };};
+
+    const [nav, setNav] = useState({ level: 'national', code: null, si: null });
+    const [sel, setSel] = useState({ contestKey: null, highlight: null });
+
+    const goNational = () => {setNav({ level: 'national', code: null, si: null });setSel({ contestKey: null, highlight: null });};
+    const goSido = (code) => {setNav({ level: 'sido', code, si: null });setSel({ contestKey: null, highlight: null });};
+    const goDistrict = (code, si) => {setNav({ level: 'district', code, si });setSel({ contestKey: distKey(code, si), highlight: null });};
+    const selectDong = (key, hl = null) => {setSel({ contestKey: key, highlight: hl });};
+
+    const onPick = (item) => {
+      if (item.kind === 'region') {if (item.level === 'district') goDistrict(item.sidoId, item.sgIndex);} else
+      if (item.kind === 'dong') {setNav({ level: 'district', code: item.sidoId, si: item.sgIndex });setSel({ contestKey: item.contestKey, highlight: null });} else
+      if (item.kind === 'candidate') {setNav({ level: 'district', code: item.sidoId, si: item.sgIndex });setSel({ contestKey: item.contestKey, highlight: item.candName });}
+    };
+
+    const contest = sel.contestKey ? G.byKey[sel.contestKey] : null;
+    let regions = [],labels = null,viewBox = '0 0 ' + G.natViewBox[0] + ' ' + G.natViewBox[1],selectedGid = null,
+      fontSize = 8,labelFont = 15,flat = false,caption = '',list = null,legendParties = [],staticMosaic = false,baseLayer = null,outlines = null;
+
+    if (nav.level === 'national') {
+      /* 전국 지도 = 모든 선거구의 읍·면·동을 1위 정당 그라디언트로 칠한 모자이크 */
+      flat = true;
+      fontSize = NAT_FONT;labelFont = NAT_LBLFONT;
+      viewBox = NAT_VB;
+      regions = MOSAIC.guk.regions;
+      outlines = MOSAIC.guk.outlines;
+      staticMosaic = true;
+      baseLayer = greyOutlines((es) => G.byKey['guk-' + es + '-0'] != null);
+      labels = MOSAIC.guk.labels.concat(greyLabels((es) => G.byKey['guk-' + es + '-0'] != null));
+      selectedGid = contest ? contest.sidoId : null;
+      caption = '전국 시·군·구의장 — 읍·면·동별 1위 정당 · 시·도를 클릭하면 선거구 → 읍·면·동으로 · 채도 = 격차';
+      legendParties = MOSAIC.guk.parties;
+      list = { title: '시·도', items: G.sidoList.map((se) => {const dm = dominant(se);return { key: se.id, gid: se.id, label: se.name, pid: dm.pid, share: dm.share, on: () => goSido(se.id) };}).sort((a, b) => a.label.localeCompare(b.label, 'ko')) };
+    } else if (nav.level === 'sido') {
+      const se = sidoById[nav.code];
+      viewBox = '0 0 ' + se.vb[0] + ' ' + se.vb[1];
+      fontSize = +(se.vb[0] / 220).toFixed(3);labelFont = +(se.vb[0] / 52).toFixed(2);
+      /* 시·도지사 지도와 동일하게: 칠은 읍·면·동별 1위, 클릭/툴팁은 선거구(시·군·구) 단위 */
+      se.districts.forEach((d) => {
+        if (d.novote || !d.dongs.length) {
+          d.dongGeos.forEach((g, gi) => regions.push({ key: d.key + '_' + gi, gid: d.key, path: g.d, result: d, fillRes: d, tipName: d.sggName }));
+        } else {
+          d.dongs.forEach((dc) => {if (dc.geo) regions.push({ key: dc.key, gid: d.key, path: dc.geo.d, result: d, fillRes: dc, tipName: d.sggName });});
+        }
+      });
+      labels = se.districts.filter((d) => d.geo).map((d) => ({ cx: (d.labelPt || d.geo).cx, cy: (d.labelPt || d.geo).cy, text: d.sggName }));
+      selectedGid = contest && contest.level === 'district' ? contest.key : null;
+      caption = se.name + ' · 읍·면·동별 1위 정당 · 클릭하면 선거구 개표로 · 채도 = 격차';
+      const ps = new Set();se.districts.forEach((d) => {if (d.novote || !d.dongs.length) ps.add(d.winnerPartyId);else d.dongs.forEach((dc) => {if (dc.geo) ps.add(dc.winnerPartyId);});});legendParties = [...ps];
+      list = { title: '선거구', items: se.districts.map((d) => ({ key: d.key, gid: d.key, label: d.sggName, pid: d.winnerPartyId, share: d.novote ? null : d.candidates[0].share, on: () => goDistrict(nav.code, d.sgIndex) })).sort((a, b) => a.label.localeCompare(b.label, 'ko')) };
+    } else {
+      const dist = G.byKey[distKey(nav.code, nav.si)];
+      const se = sidoById[nav.code];
+      const bb = dist.geo ? dist.geo.bbox : [0, 0, se.vb[0], se.vb[1]];
+      const pad = Math.max(bb[2] - bb[0], bb[3] - bb[1]) * 0.04 + 2;const w = bb[2] - bb[0] + 2 * pad,h = bb[3] - bb[1] + 2 * pad;
+      viewBox = (bb[0] - pad).toFixed(1) + ' ' + (bb[1] - pad).toFixed(1) + ' ' + w.toFixed(1) + ' ' + h.toFixed(1);
+      labelFont = +(w / 30).toFixed(2);fontSize = +(w / 180).toFixed(3);
+      if (dist.novote) {
+        dist.dongGeos.forEach((g, gi) => regions.push({ key: dist.key + '_' + gi, gid: dist.key, path: g.d, result: dist, fillRes: dist, tipName: dist.sggName }));
+        caption = se.name + ' ' + dist.sggName + ' · 무투표 당선 선거구';
+        legendParties = [dist.winnerPartyId];
+      } else {
+        dist.dongs.forEach((dc) => {if (dc.geo) regions.push({ key: dc.key, gid: dc.key, path: dc.geo.d, result: dc, tipName: dc.dongName });});
+        labels = dist.dongs.filter((dc) => dc.geo).map((dc) => ({ cx: dc.geo.cx, cy: dc.geo.cy, text: dc.dongName }));
+        selectedGid = contest && contest.level === 'gukdong' ? contest.key : null;
+        caption = se.name + ' ' + dist.sggName + ' · 읍·면·동별 1위 · 채도 = 격차';
+        const ps = new Set();dist.dongs.forEach((dc) => ps.add(dc.winnerPartyId));legendParties = [...ps];
+        list = { title: '읍·면·동', items: dist.dongs.map((dc) => ({ key: dc.key, gid: dc.key, label: dc.dongName, pid: dc.winnerPartyId, share: dc.candidates[0].share, on: () => selectDong(dc.key) })).sort((a, b) => a.label.localeCompare(b.label, 'ko')) };
+      }
+    }
+
+    const onSelect = (r) => {
+      if (nav.level === 'national') {if (sidoById[r.gid]) goSido(r.gid);} else
+      if (nav.level === 'sido') {const p = r.gid.split('-');goDistrict(p[1], +p[2]);} else
+      if (!G.byKey[distKey(nav.code, nav.si)].novote) selectDong(r.key);
+    };
+
+    let back = null,backLabel = '';
+    if (contest) {
+      if (contest.level === 'gukdong') {back = () => goDistrict(contest.sidoId, contest.sgIndex);backLabel = G.byKey[distKey(contest.sidoId, contest.sgIndex)].sggName;} else
+      if (contest.level === 'district') {back = () => goSido(contest.sidoId);backLabel = sidoById[contest.sidoId].name;}
+    }
+
+    const curSido = nav.code != null ? sidoById[nav.code] : contest ? sidoById[contest.sidoId] : null;
+    const curDist = nav.level === 'district' ? G.byKey[distKey(nav.code, nav.si)] :
+    contest && (contest.level === 'district' || contest.level === 'gukdong') ? G.byKey[distKey(contest.sidoId, contest.sgIndex)] : null;
+    const dongSel = contest && contest.level === 'gukdong' ? contest : null;
+
+    return <>
+      <SearchBar onPick={onPick} index={G.searchIndex} placeholder="시·군·구의장 후보 · 선거구 · 읍·면·동 검색  (예: 용인시, 이상일, 수원시 영통구)" />
+      <div className="grid">
+        <div className="card">
+          <div className="crumbs">
+            <button onClick={goNational}>대한민국</button>
+            {curSido && <><span className="sep">›</span>{nav.level === 'sido' && !curDist ? <span className="cur">{curSido.name}</span> : <button onClick={() => goSido(curSido.id)}>{curSido.name}</button>}</>}
+            {curDist && <><span className="sep">›</span>{nav.level === 'district' && !dongSel ? <span className="cur">{curDist.sggName}</span> : <button onClick={() => goDistrict(curDist.sidoId, curDist.sgIndex)}>{curDist.sggName}</button>}</>}
+            {dongSel && <><span className="sep">›</span><span className="cur">{dongSel.dongName}</span></>}
+          </div>
+          <RegionMap regions={regions} labels={labels} viewBox={viewBox} onSelect={onSelect}
+          selectedGid={selectedGid} fontSize={fontSize} labelFont={labelFont} flat={flat} label={caption}
+          list={list} staticMosaic={staticMosaic} baseLayer={baseLayer} outlines={outlines} />
+          <Legend parties={legendParties} />
+        </div>
+        <div className="card">
+          {contest ?
+          <Detail contest={contest} highlightName={sel.highlight} onBack={back} backLabel={backLabel}
+          hint={contest.level === 'district' && !contest.novote ? '지도에서 읍·면·동을 클릭하면 동별 개표 결과를 볼 수 있어요.' : null} /> :
+          <GukSummary />}
+        </div>
+      </div>
+      <div className="footer">
+        <b>데이터</b> — 중앙선관위 <b>구·시·군의 장 선거 읍·면·동별 개표 엑셀</b>을 그대로 집계했습니다. 전국 지도는 시·도지사처럼 <b>시·도별 최다 1위 정당</b> 색으로 칠했고, 시·도 안으로 들어가면 선거구·읍·면·동까지 실제 수치를 볼 수 있습니다.<br />
+        용인·성남·수원·창원·고양·안산·부천·안양·화성·청주·전주·포항 등 <b>행정구로 나뉜 큰 시</b>는 하나의 시장 선거구로 통합했습니다. <b>무투표 선거구</b>(광주 서구·남구, 경기 시흥시)는 당선 정당색으로만 표시됩니다.<br />
+        ※ 세종특별자치시·제주특별자치도는 <b>시·군·구의장 선거 자체가 없어</b> 지도에 표시되지 않습니다(회색). 행정구역 경계: 행정안전부 행정동 경계 2026.04.01 기준.
+      </div>
+  </>;
+  }
+
+  /* ====================== 교육감(성향) 탐색기 ====================== */
+  function EduExplorer() {
+    const E = DATA.edu;
+    const eC = (id) => E.byKey['edusido-' + id];
+    const eduList = E.sidoList;
+    const hasData = (id) => !!eC(id);
+
+    const [nav, setNav] = useState({ level: 'national', sidoId: null, sgIndex: null });
+    const [sel, setSel] = useState({ contestKey: null, highlight: null });
+
+    const goNational = () => {setNav({ level: 'national', sidoId: null, sgIndex: null });setSel({ contestKey: null, highlight: null });};
+    const goSido = (id) => {if (!hasData(id)) return;setNav({ level: 'sido', sidoId: id, sgIndex: null });setSel({ contestKey: 'edusido-' + id, highlight: null });};
+    const goSigungu = (id, sgi) => {setNav({ level: 'sigungu', sidoId: id, sgIndex: sgi });setSel({ contestKey: 'edusg-' + id + '-' + sgi, highlight: null });};
+    const selectDong = (key, hl = null) => {setSel({ contestKey: key, highlight: hl });};
+
+    const onPick = (item) => {
+      if (item.kind === 'region') {
+        if (item.level === 'sido') goSido(item.sidoId);else
+        goSigungu(item.sidoId, item.sgIndex);
+      } else if (item.kind === 'dong') {
+        setNav({ level: 'sigungu', sidoId: item.sidoId, sgIndex: item.sgIndex });
+        setSel({ contestKey: item.contestKey, highlight: null });
+      } else if (item.kind === 'candidate') {
+        const k = item.contestKey;
+        if (k.indexOf('edusido-') === 0) {setNav({ level: 'sido', sidoId: item.sidoId, sgIndex: null });setSel({ contestKey: k, highlight: item.candName });} else
+        {setNav({ level: 'sigungu', sidoId: item.sidoId, sgIndex: item.sgIndex });setSel({ contestKey: k, highlight: item.candName });}
+      }
+    };
+
+    const contest = sel.contestKey ? E.byKey[sel.contestKey] : null;
+
+    let regions = [],labels = null,viewBox = '0 0 1000 938',selectedGid = null,fontSize = 8,labelFont = 15,flat = false,caption = '',list = null,baseLayer = null,outlines = null,staticMosaic = false;
+    let legendParties = ['edu_jinbo', 'edu_bosu', 'edu_jungdo'];
+
+    if (nav.level === 'national') {
+      flat = true;fontSize = NAT_FONT;labelFont = NAT_LBLFONT;
+      viewBox = NAT_VB;
+      regions = MOSAIC.edu.regions;
+      outlines = MOSAIC.edu.outlines;
+      staticMosaic = true;
+      baseLayer = greyOutlines((es) => hasData(es));
+      labels = MOSAIC.edu.labels.concat(greyLabels((es) => hasData(es)));
+      selectedGid = contest && contest.level === 'sido' ? contest.sidoId : null;
+      caption = '시·도 교육감 — 읍·면·동별 1위 성향 · 시·도를 클릭하면 시·군·구 → 읍·면·동으로 · 채도 = 격차';
+      legendParties = MOSAIC.edu.parties.length ? MOSAIC.edu.parties : ['edu_jinbo', 'edu_bosu', 'edu_jungdo'];
+      list = { title: '시·도', items: eduList.map((s) => {const c = eC(s.id);return { key: s.id, gid: s.id, label: c.regionName, pid: c.winnerPartyId, share: c.candidates[0].share, on: () => goSido(s.id) };}).sort((a, b) => a.label.localeCompare(b.label, 'ko')) };
+    } else {
+      const sc = eC(nav.sidoId);
+      if (nav.level === 'sido') {
+        viewBox = '0 0 ' + sc.vb[0] + ' ' + sc.vb[1];
+        fontSize = +(sc.vb[0] / 220).toFixed(3);labelFont = +(sc.vb[0] / 52).toFixed(2);
+        sc.sigungu.forEach((sg, sgi) => {sg.dongs.forEach((d) => {if (d.geo) regions.push({ key: d.key, gid: 'sg' + sgi, path: d.geo.d, result: sg, fillRes: d, tipName: sg.regionName });});});
+        labels = sc.sigungu.filter((sg) => sg.geo).map((sg) => ({ cx: sg.geo.cx, cy: sg.geo.cy, text: sg.sggName }));
+        caption = sc.regionName + ' · 읍·면·동별 1위 성향 · 클릭하면 자치구별 개표로';
+        const ps = new Set();sc.sigungu.forEach((sg) => sg.dongs.forEach((d) => {if (d.geo) ps.add(d.winnerPartyId);}));legendParties = [...ps];
+        list = { title: '자치구', items: sc.sigungu.map((sg, sgi) => ({ key: 'sg' + sgi, gid: 'sg' + sgi, label: sg.sggName, pid: sg.winnerPartyId, share: sg.candidates[0].share, on: () => goSigungu(nav.sidoId, sgi) })).sort((a, b) => a.label.localeCompare(b.label, 'ko')) };
+      } else {
+        const sg = sc.sigungu[nav.sgIndex];
+        const bb = sg.geo ? sg.geo.bbox : [0, 0, sc.vb[0], sc.vb[1]];
+        const pad = Math.max(bb[2] - bb[0], bb[3] - bb[1]) * 0.04 + 2;
+        const w = bb[2] - bb[0] + 2 * pad,h = bb[3] - bb[1] + 2 * pad;
+        viewBox = (bb[0] - pad).toFixed(1) + ' ' + (bb[1] - pad).toFixed(1) + ' ' + w.toFixed(1) + ' ' + h.toFixed(1);
+        labelFont = +(w / 30).toFixed(2);fontSize = +(w / 180).toFixed(3);
+        sg.dongs.forEach((d) => {if (d.geo) regions.push({ key: d.key, gid: d.key, path: d.geo.d, result: d, tipName: d.dongName });});
+        labels = sg.dongs.filter((d) => d.geo).map((d) => ({ cx: d.geo.cx, cy: d.geo.cy, text: d.dongName }));
+        selectedGid = contest && contest.level === 'dong' ? contest.key : null;
+        caption = sc.regionName + ' ' + sg.sggName + ' · 읍·면·동별 1위 성향 · 채도 = 격차';
+        const ps = new Set();sg.dongs.forEach((d) => ps.add(d.winnerPartyId));legendParties = [...ps];
+        list = { title: '읍·면·동', items: sg.dongs.map((d) => ({ key: d.key, gid: d.key, label: d.dongName, pid: d.winnerPartyId, share: d.candidates[0].share, on: () => selectDong(d.key) })).sort((a, b) => a.label.localeCompare(b.label, 'ko')) };
+      }
+    }
+
+    const onSelect = (r) => {
+      if (nav.level === 'national') {if (hasData(r.gid)) goSido(r.gid);} else
+      if (nav.level === 'sido') {const sgi = +r.gid.slice(2);goSigungu(nav.sidoId, sgi);} else
+      selectDong(r.key);
+    };
+
+    let back = null,backLabel = '';
+    if (contest) {
+      if (contest.level === 'dong') {back = () => goSigungu(contest.sidoId, contest.sgIndex);backLabel = eC(contest.sidoId).sigungu[contest.sgIndex].sggName;} else
+      if (contest.level === 'sigungu') {back = () => goSido(contest.sidoId);backLabel = eC(contest.sidoId).regionName;} else
+      if (contest.level === 'sido') {back = goNational;backLabel = '전국';}
+    }
+
+    const cur = nav.sidoId != null ? eC(nav.sidoId) : null;
+    const dongSel = contest && contest.level === 'dong' ? contest : null;
+    const sgName = nav.level === 'sigungu' && cur ? cur.sigungu[nav.sgIndex].sggName :
+    dongSel ? eC(dongSel.sidoId).sigungu[dongSel.sgIndex].sggName : null;
+
+    return <>
+      <SearchBar onPick={onPick} index={E.searchIndex} placeholder="교육감 후보 · 시·도 · 자치구 · 읍·면·동 검색  (예: 정근식, 강남구, 청운효자동)" />
+      <div className="grid">
+        <div className="card">
+          <div className="crumbs">
+            <button onClick={goNational}>대한민국</button>
+            {cur && <><span className="sep">›</span>{nav.level === 'sido' && !dongSel ? <span className="cur">{cur.regionName}</span> : <button onClick={() => goSido(nav.sidoId != null ? nav.sidoId : dongSel.sidoId)}>{cur.regionName}</button>}</>}
+            {sgName && <><span className="sep">›</span>{dongSel ? <button onClick={() => goSigungu(dongSel.sidoId, dongSel.sgIndex)}>{sgName}</button> : <span className="cur">{sgName}</span>}</>}
+            {dongSel && <><span className="sep">›</span><span className="cur">{dongSel.dongName}</span></>}
+          </div>
+          <RegionMap regions={regions} labels={labels} viewBox={viewBox} onSelect={onSelect}
+          selectedGid={selectedGid} fontSize={fontSize} labelFont={labelFont} flat={flat} label={caption} list={list} baseLayer={baseLayer} outlines={outlines} staticMosaic={staticMosaic} />
+          <Legend parties={legendParties} />
+        </div>
+        <div className="card">
+          {contest ?
+          <Detail contest={contest} highlightName={sel.highlight} onBack={back} backLabel={backLabel}
+          hint={contest.level === 'sido' ? '지도에서 자치구를 클릭하면 읍·면·동까지 들어갈 수 있어요.' : contest.level === 'sigungu' ? '지도에서 읍·면·동을 클릭하면 동별 개표 결과를 볼 수 있어요.' : null} /> :
+          <EduSummary />}
+        </div>
+      </div>
+      <div className="footer">
+        <b>데이터</b> — 중앙선관위 <b>교육감 선거 읍·면·동별 개표 엑셀(전국 16개 시·도)</b>을 그대로 집계했습니다. 시·도 → 시·군·구 → 읍·면·동까지 실제 수치입니다.<br />
+        교육감 후보는 정당이 없어 <b>진보·보수·중도 성향</b>으로 색을 칠했습니다. 지도·후보 막대는 <b>당선 후보의 성향</b> 기준이며, 요약 패널의 <b>성향별 득표</b>는 같은 성향 후보들의 표를 합산한 값입니다.<br />
+        <b>전남·광주통합특별시</b>는 광주광역시 5개 자치구 + 전라남도 22개 시·군을 묶었으나, 교육감 선거는 광주·전남이 별도로 치러져 두 지역 후보가 함께 집계됩니다. 행정구역 경계: 행정안전부 행정동 경계 2026.04.01 기준.
+      </div>
+  </>;
+  }
+
+  /* ====================== 국회의원 재·보궐(전국) 탐색기 ====================== */
+  function NaExplorer() {
+    const G = DATA.na;
+    const distList = G.summary.districtList || [];
+    const sidoById = {};G.sidoList.forEach((se) => {sidoById[se.id] = se;});
+    const distKey = (code, si) => 'na-' + code + '-' + si;
+    const SIDO_NICK = { '서울특별시': '서울', '부산광역시': '부산', '대구광역시': '대구', '인천광역시': '인천', '광주광역시': '광주', '대전광역시': '대전', '울산광역시': '울산', '세종특별자치시': '세종', '경기도': '경기', '강원특별자치도': '강원', '충청북도': '충북', '충청남도': '충남', '전북특별자치도': '전북', '전라남도': '전남', '경상북도': '경북', '경상남도': '경남', '제주특별자치도': '제주' };
+    const sidoShort = (s) => SIDO_NICK[s] || s.replace(/(특별자치도|특별자치시|특별시|광역시|도)$/, '');
+    const abbrevDist = (nm) => {
+      const m = nm.match(/[가-힣]+?[시군구]/g);
+      if (!m || m.length <= 1) return nm;
+      const tail = nm.slice(m.join('').length);
+      return m.map((t) => t.replace(/[시군구]$/, '')).join('·') + tail;
+    };
+
+    const [view, setView] = useState({ kind: 'all', di: null });
+    const [sel, setSel] = useState({ contestKey: null, highlight: null });
+
+    const selectAll = () => {setView({ kind: 'all', di: null });setSel({ contestKey: null, highlight: null });};
+    const selectDist = (di) => {setView({ kind: 'dist', di });setSel({ contestKey: null, highlight: null });};
+    const selectDong = (key, hl = null) => {setSel({ contestKey: key, highlight: hl });};
+    const clearDong = () => setSel({ contestKey: null, highlight: null });
+
+    const onPick = (item) => {
+      const di = distList.findIndex((d) => d.sidoId === item.sidoId && d.sgIndex === item.sgIndex);
+      if (di < 0) return;
+      if (item.kind === 'candidate') {setView({ kind: 'dist', di });setSel({ contestKey: item.contestKey, highlight: item.candName });} else
+      if (item.kind === 'dong') {setView({ kind: 'dist', di });setSel({ contestKey: item.contestKey, highlight: null });} else
+      selectDist(di);
+    };
+
+    const curD = view.kind === 'dist' ? distList[view.di] : null;
+    const dist = curD ? G.byKey[curD.key] : null;
+    const dongSel = sel.contestKey ? G.byKey[sel.contestKey] : null;
+
+    let regions = [],labels = null,viewBox = '0 0 1000 1000',selectedGid = null,fontSize = 8,labelFont = 15,caption = '',list = null,legendParties = [];
+    if (dist) {
+      const se = sidoById[curD.sidoId];
+      const bb = dist.geo ? dist.geo.bbox : [0, 0, se.vb[0], se.vb[1]];
+      const pad = Math.max(bb[2] - bb[0], bb[3] - bb[1]) * 0.04 + 2;const w = bb[2] - bb[0] + 2 * pad,h = bb[3] - bb[1] + 2 * pad;
+      viewBox = (bb[0] - pad).toFixed(1) + ' ' + (bb[1] - pad).toFixed(1) + ' ' + w.toFixed(1) + ' ' + h.toFixed(1);
+      labelFont = +(w / 30).toFixed(2);fontSize = +(w / 180).toFixed(3);
+      dist.dongs.forEach((dc) => {if (dc.geo) regions.push({ key: dc.key, gid: dc.key, path: dc.geo.d, result: dc, tipName: dc.dongName });});
+      labels = dist.dongs.filter((dc) => dc.geo).map((dc) => ({ cx: dc.geo.cx, cy: dc.geo.cy, text: dc.dongName }));
+      selectedGid = dongSel && dongSel.level === 'nadong' ? dongSel.key : null;
+      caption = se.name + ' ' + dist.sggName + ' · 읍·면·동별 1위 · 채도 = 격차 · 클릭하면 동별 개표로';
+      const ps = new Set();dist.dongs.forEach((dc) => {if (dc.geo) ps.add(dc.winnerPartyId);});legendParties = [...ps];
+      list = { title: '읍·면·동', items: dist.dongs.map((dc) => ({ key: dc.key, gid: dc.key, label: dc.dongName, pid: dc.winnerPartyId, share: dc.candidates[0].share, on: () => selectDong(dc.key) })).sort((a, b) => a.label.localeCompare(b.label, 'ko')) };
+    }
+    const onSelect = (r) => {if (dist) selectDong(r.key);};
+
+    let rightPanel;
+    if (dongSel) rightPanel = <Detail contest={dongSel} highlightName={sel.highlight} onBack={clearDong} backLabel={dist.sggName} />;
+    else if (dist) rightPanel = <Detail contest={dist} hint="지도에서 읍·면·동을 클릭하면 동별 개표 결과를 볼 수 있어요." />;
+    else rightPanel = <NaSummary />;
+
+    return <>
+      <SearchBar onPick={onPick} index={G.searchIndex} placeholder="국회의원 후보 · 선거구 · 읍·면·동 검색  (예: 한동훈, 안산시갑, 수완동)" />
+      <div className="sido-pills">
+        <button className={view.kind === 'all' ? 'is-on' : ''} onClick={selectAll}>전체 결과<span className="mt-tag">14곳</span></button>
+        {distList.map((d, di) => (
+          <button key={d.key} className={view.kind === 'dist' && view.di === di ? 'is-on' : ''} onClick={() => selectDist(di)}>
+            <i className="pilldot" style={{ background: party(d.partyId).color }} />{sidoShort(d.sido)} {abbrevDist(d.name)}
+          </button>
+        ))}
+      </div>
+      {view.kind === 'all' ?
+      <div className="grid">
+        <div className="card">
+          <div className="detail__sectionlabel" style={{ marginTop: 2, marginBottom: 12 }}>재·보궐 선거구 14곳 — 선거구를 누르면 개표 지도로</div>
+          <div className="na-distgrid">
+            {distList.map((d, di) => (
+              <button key={d.key} className="na-distcard" onClick={() => selectDist(di)}>
+                <span className="na-distcard__dot" style={{ background: party(d.partyId).color }} />
+                <span className="na-distcard__sido">{sidoShort(d.sido)}</span>
+                <span className="na-distcard__name">{abbrevDist(d.name)}</span>
+                <span className="na-distcard__cand">{d.candName} · {party(d.partyId).short} {pct(d.share)}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+        <div className="card"><NaSummary /></div>
+      </div> :
+      <div className="grid">
+        <div className="card">
+          <div className="crumbs">
+            <button onClick={selectAll}>전체 결과</button>
+            <span className="sep">›</span>
+            {dongSel ? <button onClick={clearDong}>{sidoShort(curD.sido)} {dist.sggName}</button> : <span className="cur">{sidoShort(curD.sido)} {dist.sggName}</span>}
+            {dongSel && <><span className="sep">›</span><span className="cur">{dongSel.dongName}</span></>}
+          </div>
+          <RegionMap regions={regions} labels={labels} viewBox={viewBox} onSelect={onSelect}
+          selectedGid={selectedGid} fontSize={fontSize} labelFont={labelFont} flat={false} label={caption} list={list} />
+          <Legend parties={legendParties} />
+        </div>
+        <div className="card">{rightPanel}</div>
+      </div>}
+      <div className="footer">
+        <b>데이터</b> — 중앙선관위 <b>국회의원 재·보궐선거 읍·면·동별 개표 엑셀</b>을 그대로 집계했습니다. 2026 지방선거와 같은 날(2026.06.03) 치러진 <b>14개 선거구</b>입니다.<br />
+        위의 <b>선거구 버튼</b>을 누르면 해당 선거구의 <b>읍·면·동별 개표 지도</b>로 들어갑니다. 선거구 → 읍·면·동까지 사전·본투표를 후보별로 비교할 수 있습니다.<br />
+        행정구역 경계: 행정안전부 행정동 경계 2026.04.01 기준.
+      </div>
+  </>;
+  }
+
+  /* ====================== 광역의회의원(시·도의회) 요약 패널들 ====================== */
+  const GW_ORDER = ['minju', 'power', 'jokuk', 'reform', 'jinbo', 'jeongui', 'gibon', 'saemin', 'saemirae', 'indep', 'etc'];
+
+  /* 반원형 의석 배치도 — total석을 정당 순서(GW_ORDER)대로 좌→우 채움 */
+  function SeatArc({ seatComp, total }) {
+    const seq = []; seatComp.forEach((c) => { for (let i = 0; i < c.total; i++) seq.push(c.pid); });
+    while (seq.length < total) seq.push('etc');
+    const rows = total <= 24 ? 3 : total <= 60 ? 4 : total <= 100 ? 5 : 6;
+    const rIn = 0.62, rOut = 1.0;
+    const radii = []; for (let i = 0; i < rows; i++) radii.push(rIn + (rOut - rIn) * (rows === 1 ? 0 : i / (rows - 1)));
+    const wsum = radii.reduce((a, b) => a + b, 0);
+    let counts = radii.map((r) => Math.max(1, Math.round(total * r / wsum)));
+    let diff = total - counts.reduce((a, b) => a + b, 0); let gi = rows - 1;
+    while (diff !== 0) { counts[gi] += diff > 0 ? 1 : -1; diff += diff > 0 ? -1 : 1; gi = (gi - 1 + rows) % rows; }
+    const seats = [];
+    radii.forEach((r, ri) => { const n = counts[ri]; for (let k = 0; k < n; k++) { const t = n === 1 ? 0.5 : k / (n - 1); seats.push({ r, th: Math.PI * (1 - t) }); } });
+    seats.sort((a, b) => b.th - a.th);
+    const W = 340, R = 150, cx = W / 2, cy = R + 6, dot = 7.4;
+    return (
+      <svg viewBox={`0 0 ${W} ${cy + 20}`} style={{ width: '100%', display: 'block' }}>
+        {seats.map((s, i) => { const x = cx + R * s.r * Math.cos(s.th), y = cy - R * s.r * Math.sin(s.th); const pid = seq[i] || 'etc';
+          return <circle key={i} cx={x.toFixed(1)} cy={y.toFixed(1)} r={dot} fill={party(pid).color} />; })}
+        <text x={cx} y={cy - 6} textAnchor="middle" style={{ fontSize: 56, fontWeight: 800, fill: 'var(--txt)', fontFamily: 'inherit' }}>{total}</text>
+        <text x={cx} y={cy + 13} textAnchor="middle" style={{ fontSize: 14, fill: 'var(--muted)' }}>▼</text>
+      </svg>
+    );
+  }
+
+  function GwangSummary({ G }) {
+    const g = G; const s = g.summary;
+    const lead = s.seatComp[0];
+    return (
+      <div className="detail">
+        <div className="detail__head"><div><div className="detail__type">{s.title}<span className="real-badge">실데이터</span></div><h2 className="detail__title">선거 결과 · 총 {s.grandTotal}석</h2><div className="detail__parent">제9회 전국동시지방선거 · 2026.06.03</div></div></div>
+        <div className="seatarc"><SeatArc seatComp={s.seatComp} total={s.grandTotal} /></div>
+        <div className="seatlead"><div className="seatlead__bar"><div style={{ flex: lead.total, background: party(lead.pid).color }} className="seatlead__on">{party(lead.pid).short} {lead.total}석</div><div style={{ flex: s.grandTotal - lead.total }} className="seatlead__off" /></div></div>
+        <div className="seattable">
+          <div className="seattable__hd"><span>정당</span><span>지역구</span><span>비례대표</span><span>총합</span><span>비율</span></div>
+          {s.seatComp.map((c) => (
+            <div key={c.pid} className="seattable__row">
+              <span className="seattable__party"><b style={{ background: party(c.pid).color, color: party(c.pid).textOn }}>{party(c.pid).name}</b></span>
+              <span>{c.dist}석</span><span>{c.prop}석</span><span className="seattable__tot">{c.total}석</span><span>{pct(c.total / s.grandTotal, 1)}</span>
+            </div>
+          ))}
+        </div>
+        <div className="seatnote">지역구 <b>{s.totalSeats}석</b>(소선거구) + 비례대표 <b>{s.propSeatTotal}석</b> = <b>{s.grandTotal}석</b>. 비례 의석은 정당 명부 득표율에 따라 배분됩니다.</div>
+        <p className="hint" style={{ marginTop: 14 }}>지도에서 <b>자치구</b>를 클릭하면 <b>지역구 선거구 → 읍·면·동</b>까지 들어갈 수 있어요. 위의 <b>비례대표</b> 탭을 누르면 정당 득표 지도로 전환됩니다.</p>
+      </div>
+    );
+  }
+
+  function GwangPropSummary({ G }) {
+    const g = G; const s = g.summary;
+    const propEntries = Object.keys(s.propCity).filter((p) => s.propCity[p] > 0).sort((a, b) => s.propCity[b] - s.propCity[a]);
+    const ptot = s.propCityTotal || 1;
+    return (
+      <div className="detail">
+        <div className="detail__head"><div><div className="detail__type">{sidoShort(g.name)} 광역의회 · 비례대표<span className="real-badge">실데이터</span></div><h2 className="detail__title">정당 득표 {fmt(ptot)}표</h2><div className="detail__parent">제9회 전국동시지방선거 · 2026.06.03</div></div></div>
+        <div className="summarybar summarybar--prop">{propEntries.map((p) => <div key={p} className="summarybar__seg" style={{ flex: s.propCity[p], background: party(p).color }}>{s.propCity[p] / ptot >= 0.06 && <span>{party(p).short} {pct(s.propCity[p] / ptot, 0)}</span>}</div>)}</div>
+        <div className="cands" style={{ marginTop: 16 }}>
+          {propEntries.map((p) => (
+            <div key={p} className="cand"><div className="cand__row"><PartyDot pid={p} size={11} /><span className="cand__name">{party(p).name}</span><span className="cand__share">{pct(s.propCity[p] / ptot)}</span></div>
+              <div className="cand__track"><div className="cand__fill" style={{ width: (s.propCity[p] / ptot * 100) + '%', background: party(p).color }} /></div>
+              <div className="cand__votes">{fmt(s.propCity[p])}표</div></div>
+          ))}
+        </div>
+        <p className="hint" style={{ marginTop: 16 }}>지도에서 <b>자치구</b>를 클릭하면 <b>읍·면·동별 비례 1위 정당</b>까지 볼 수 있어요. 비례대표는 정당 명부 투표로, 지역구 의석과 별개로 정당 득표율을 보여줍니다.</p>
+      </div>
+    );
+  }
+
+  function GwangGuSummary({ G, gi, onDist, onBack }) {
+    const g = G; const gu = g.guList[gi];
+    const pc = gu.propKey ? g.byKey[gu.propKey] : null;
+    const dl = gu.districts.map((d) => g.byKey[d.key]);
+    const seatCnt = {}; dl.forEach((dc) => { const ws = dc.winners || [dc.candidates[0]]; ws.forEach((w) => { seatCnt[w.partyId] = (seatCnt[w.partyId] || 0) + 1; }); });
+    const seatSegs = GW_ORDER.filter((p) => seatCnt[p]);
+    const propTop = pc ? pc.candidates.filter((c) => c.share >= 0.012).slice(0, 6) : [];
+    return (
+      <div className="detail">
+        <div className="detail__head"><div><div className="detail__type">{sidoShort(g.name)} 광역의회 · 자치구<span className="real-badge">실데이터</span></div><h2 className="detail__title">{gu.name}</h2><div className="detail__parent">지역구 {gu.districts.length}곳 · 비례대표</div></div>
+          {onBack && <button className="btn-ghost" onClick={onBack}>← {sidoShort(g.name)}</button>}</div>
+        <div className="detail__sectionlabel">지역구 당선자 ({dl.length}곳 · {dl.reduce((s, dc) => s + (dc.seats || 1), 0)}석)</div>
+        <div className="cands" style={{ marginBottom: 20 }}>
+          {dl.map((dc) => {
+            const ws = dc.winners || [dc.candidates[0]];
+            const multi = ws.length > 1;
+            return (
+            <button key={dc.key} className="cand" style={{ background: 'none', border: 'none', textAlign: 'left', padding: 0, cursor: 'pointer', fontFamily: 'inherit', color: 'inherit' }} onClick={() => onDist(gi, dc.sgIndex)}>
+              <div className="cand__row"><PartyDot pid={dc.winnerPartyId} size={11} /><span className="cand__name">{multi ? ws.map((w) => w.name).join(', ') : dc.candidates[0].name}</span><span className="cand__party">{dc.sggName.replace(gu.name, '')}{multi ? ' · ' + ws.length + '인' : ''}</span><span className="cand__share">{dc.novote ? '무투표' : multi ? ws.length + '명 당선' : pct(dc.candidates[0].share)}</span></div>
+              <div className="cand__track" style={multi ? { display: 'flex', gap: 2 } : null}>{multi ? ws.map((w, wi) => <div key={wi} style={{ flex: 1, height: '100%', borderRadius: 5, background: party(w.partyId).color }} />) : <div className="cand__fill" style={{ width: (dc.novote ? 100 : dc.candidates[0].share * 100) + '%', background: party(dc.winnerPartyId).color, opacity: dc.novote ? 0.5 : 1 }} />}</div>
+              <div className="cand__votes">{multi ? ws.map((w) => party(w.partyId).short).join(' · ') + ' 당선' : party(dc.winnerPartyId).name + ' · ' + (dc.novote ? '무투표 당선' : '격차 ' + pct(dc.marginPct) + 'p')}</div>
+            </button>
+          ); })}
+        </div>
+        {seatSegs.length > 0 && <>
+          <div className="detail__sectionlabel">자치구 의석 분포</div>
+          <div className="summarybar" style={{ marginBottom: 18 }}>{seatSegs.map((p) => <div key={p} className="summarybar__seg" style={{ flex: seatCnt[p], background: party(p).color }}><span>{party(p).short} {seatCnt[p]}</span></div>)}</div>
+        </>}
+        {pc && <>
+          <div className="detail__sectionlabel">비례대표 정당 득표 · {gu.name}</div>
+          <div className="cands">
+            {propTop.map((c) => (
+              <div key={c.partyId} className="cand"><div className="cand__row"><PartyDot pid={c.partyId} size={11} /><span className="cand__name">{c.name}</span><span className="cand__share">{pct(c.share)}</span></div>
+                <div className="cand__track"><div className="cand__fill" style={{ width: (c.share * 100) + '%', background: party(c.partyId).color }} /></div>
+                <div className="cand__votes">{fmt(c.votes)}표</div></div>
+            ))}
+          </div>
+        </>}
+        <p className="hint" style={{ marginTop: 16 }}>위 <b>당선자</b>를 누르거나 지도에서 <b>선거구</b>를 클릭하면 읍·면·동별 개표로 들어갑니다.</p>
+      </div>
+    );
+  }
+
+  /* ====================== 광역의회의원(시·도의회) 탐색기 ====================== */
+  const sidoShort = (nm) => nm.replace(/(통합특별시|특별자치시|특별자치도|특별시|광역시|특별자치|자치도)$/, '').replace(/도$/, '');
+  function GwangExplorer() {
+    const SIDOS = DATA.gwang.order;
+    const [sidoCode, setSidoCode] = useState(SIDOS[0]);
+    const G = DATA.gwang.sido[sidoCode];
+    const singleGu = G.guList.length === 1;
+    const guC = (gi) => G.guList[gi];
+    const distC = (gi, di) => G.byKey['gwdist-' + gi + '-' + di];
+    const propC = (gi) => G.byKey['gwprop-' + gi];
+
+    const [layer, setLayer] = useState('dist');
+    const [nav, setNav] = useState({ level: 'seoul', guIdx: null, sgIdx: null });
+    const [sel, setSel] = useState({ contestKey: null, highlight: null });
+
+    const reset = (lyr) => { setLayer(lyr); setNav({ level: 'seoul', guIdx: null, sgIdx: null }); setSel({ contestKey: null, highlight: null }); };
+    const switchSido = (code) => { setSidoCode(code); setLayer('dist'); setNav({ level: 'seoul', guIdx: null, sgIdx: null }); setSel({ contestKey: null, highlight: null }); };
+    const goSeoul = () => { setNav({ level: 'seoul', guIdx: null, sgIdx: null }); setSel({ contestKey: null, highlight: null }); };
+    const goGu = (gi) => { if (layer === 'prop') { setNav({ level: 'gu', guIdx: gi, sgIdx: null }); setSel({ contestKey: 'gwprop-' + gi, highlight: null }); } else { setNav({ level: 'gu', guIdx: gi, sgIdx: null }); setSel({ contestKey: null, highlight: null }); } };
+    const goDist = (gi, di) => { setNav({ level: 'dist', guIdx: gi, sgIdx: di }); setSel({ contestKey: 'gwdist-' + gi + '-' + di, highlight: null }); };
+    const selectDong = (key, hl = null) => { setSel({ contestKey: key, highlight: hl }); };
+
+    const onPick = (item) => {
+      if (item.kind === 'region') {
+        if (item.level === 'gu') { setLayer('dist'); goGu(item.guIndex); }
+        else if (item.level === 'gwdist') { setLayer('dist'); goDist(item.guIndex, item.sgIndex); }
+        else if (item.level === 'gwprop') { setLayer('prop'); setNav({ level: 'gu', guIdx: item.guIndex, sgIdx: null }); setSel({ contestKey: item.contestKey, highlight: null }); }
+      } else if (item.kind === 'dong') { setLayer('dist'); setNav({ level: 'dist', guIdx: item.guIndex, sgIdx: item.sgIndex }); setSel({ contestKey: item.contestKey, highlight: null }); }
+      else if (item.kind === 'candidate') { setLayer('dist'); setNav({ level: 'dist', guIdx: item.guIndex, sgIdx: item.sgIndex }); setSel({ contestKey: item.contestKey, highlight: item.candName }); }
+    };
+
+    const contest = sel.contestKey ? G.byKey[sel.contestKey] : null;
+    const vb = G.vb;
+    let regions = [], labels = null, viewBox = '0 0 ' + vb[0] + ' ' + vb[1], selectedGid = null;
+    let fontSize = +(vb[0] / 220).toFixed(3), labelFont = +(vb[0] / 52).toFixed(2), caption = '', list = null, legendParties = [];
+
+    const guDistDom = (gi) => { const gu = guC(gi); const cnt = {}; gu.districts.forEach((d) => { const w = distC(gi, d.sgIndex).winnerPartyId; cnt[w] = (cnt[w] || 0) + 1; }); let best = 'indep', bn = 0; for (const p in cnt) { if (cnt[p] > bn) { bn = cnt[p]; best = p; } } return { pid: best, share: gu.districts.length ? bn / gu.districts.length : 0 }; };
+    const shortDist = (nm, guName) => { const s = nm.replace(guName, ''); const m = s.match(/(\d+)\s*선거구/); return m ? m[1] + '선거구' : s; };
+
+    if (layer === 'dist') {
+      if (nav.level === 'seoul' && !singleGu) {
+        G.guList.forEach((gu) => gu.districts.forEach((d) => { const dc = distC(gu.guIndex, d.sgIndex); dc.dongs.forEach((dn) => { if (dn.geo) regions.push({ key: dn.key, gid: 'gu' + gu.guIndex, path: dn.geo.d, result: dc, fillRes: dn, tipName: gu.name + ' ' + dc.sggName }); }); }));
+        labels = G.guList.filter((gu) => gu.geo).map((gu) => ({ cx: gu.geo.cx, cy: gu.geo.cy, text: gu.name }));
+        selectedGid = contest && contest.guIndex != null ? 'gu' + contest.guIndex : null;
+        caption = G.name + ' 광역의원 지역구 — 읍·면·동별 1위 정당 · 채도 = 격차 · 자치구를 클릭하면 선거구 → 읍·면·동으로';
+        const ps = new Set(); G.guList.forEach((gu) => gu.districts.forEach((d) => distC(gu.guIndex, d.sgIndex).dongs.forEach((dn) => { if (dn.geo) ps.add(dn.winnerPartyId); }))); legendParties = [...ps];
+        list = { title: '자치구', items: G.guList.map((gu) => { const dm = guDistDom(gu.guIndex); return { key: 'gu' + gu.guIndex, gid: 'gu' + gu.guIndex, label: gu.name, pid: dm.pid, share: dm.share, on: () => goGu(gu.guIndex) }; }).sort((a, b) => a.label.localeCompare(b.label, 'ko')) };
+      } else if (nav.level === 'gu' || (nav.level === 'seoul' && singleGu)) {
+        const gIdx = singleGu ? 0 : nav.guIdx;
+        const gu = guC(gIdx);
+        const bb = gu.geo ? gu.geo.bbox : [0, 0, vb[0], vb[1]];
+        const pad = Math.max(bb[2] - bb[0], bb[3] - bb[1]) * 0.05 + 2, w = bb[2] - bb[0] + 2 * pad, h = bb[3] - bb[1] + 2 * pad;
+        viewBox = (bb[0] - pad).toFixed(1) + ' ' + (bb[1] - pad).toFixed(1) + ' ' + w.toFixed(1) + ' ' + h.toFixed(1);
+        labelFont = +(w / 26).toFixed(2); fontSize = +(w / 200).toFixed(3);
+        gu.districts.forEach((d) => { const dc = distC(gIdx, d.sgIndex); dc.dongs.forEach((dn) => { if (dn.geo) regions.push({ key: dn.key, gid: 'sg' + d.sgIndex, path: dn.geo.d, result: dc, fillRes: dn, tipName: dc.sggName }); }); });
+        labels = gu.districts.map((d) => { const dc = distC(gIdx, d.sgIndex); return dc.geo ? { cx: dc.geo.cx, cy: dc.geo.cy, text: shortDist(dc.sggName, gu.name) } : null; }).filter(Boolean);
+        selectedGid = contest && contest.level === 'gwdist' ? 'sg' + contest.sgIndex : null;
+        caption = (singleGu ? G.name : gu.name) + ' · 읍·면·동별 1위 · 채도 = 격차 · 클릭하면 선거구별 개표로';
+        const ps = new Set(); gu.districts.forEach((d) => distC(gIdx, d.sgIndex).dongs.forEach((dn) => { if (dn.geo) ps.add(dn.winnerPartyId); })); legendParties = [...ps];
+        list = { title: '선거구', items: gu.districts.map((d) => { const dc = distC(gIdx, d.sgIndex); return { key: 'sg' + d.sgIndex, gid: 'sg' + d.sgIndex, label: shortDist(dc.sggName, gu.name), pid: dc.winnerPartyId, share: dc.candidates[0].share, on: () => goDist(gIdx, d.sgIndex) }; }) };
+      } else {
+        const dc = distC(nav.guIdx, nav.sgIdx);
+        const bb = dc.geo ? dc.geo.bbox : (guC(nav.guIdx).geo ? guC(nav.guIdx).geo.bbox : [0, 0, vb[0], vb[1]]);
+        const pad = Math.max(bb[2] - bb[0], bb[3] - bb[1]) * 0.06 + 2, w = bb[2] - bb[0] + 2 * pad, h = bb[3] - bb[1] + 2 * pad;
+        viewBox = (bb[0] - pad).toFixed(1) + ' ' + (bb[1] - pad).toFixed(1) + ' ' + w.toFixed(1) + ' ' + h.toFixed(1);
+        labelFont = +(w / 22).toFixed(2); fontSize = +(w / 180).toFixed(3);
+        dc.dongs.forEach((dn) => { if (dn.geo) regions.push({ key: dn.key, gid: dn.key, path: dn.geo.d, result: dn, tipName: dn.dongName }); });
+        labels = dc.dongs.filter((dn) => dn.geo).map((dn) => ({ cx: dn.geo.cx, cy: dn.geo.cy, text: dn.dongName }));
+        selectedGid = contest && contest.level === 'gwdong' ? contest.key : null;
+        caption = guC(nav.guIdx).name + ' ' + dc.sggName + ' · 읍·면·동별 1위 · 채도 = 격차';
+        const ps = new Set(); dc.dongs.forEach((dn) => ps.add(dn.winnerPartyId)); legendParties = [...ps];
+        list = { title: '읍·면·동', items: dc.dongs.map((dn) => ({ key: dn.key, gid: dn.key, label: dn.dongName, pid: dn.winnerPartyId, share: dn.candidates[0].share, on: () => selectDong(dn.key) })).sort((a, b) => a.label.localeCompare(b.label, 'ko')) };
+      }
+    } else {
+      if (nav.level === 'seoul' && !singleGu) {
+        G.guList.forEach((gu) => { if (!gu.propKey) return; propC(gu.guIndex).dongs.forEach((dn) => { if (dn.geo) regions.push({ key: dn.key, gid: 'gu' + gu.guIndex, path: dn.geo.d, result: dn, tipName: gu.name + ' ' + dn.dongName }); }); });
+        labels = G.guList.filter((gu) => gu.geo).map((gu) => ({ cx: gu.geo.cx, cy: gu.geo.cy, text: gu.name }));
+        selectedGid = contest && contest.guIndex != null ? 'gu' + contest.guIndex : null;
+        caption = G.name + ' 광역의원 비례대표 — 읍·면·동별 1위 정당 · 자치구를 클릭하면 동별 개표로';
+        const ps = new Set(); G.guList.forEach((gu) => { if (gu.propKey) propC(gu.guIndex).dongs.forEach((dn) => ps.add(dn.winnerPartyId)); }); legendParties = [...ps];
+        list = { title: '자치구', items: G.guList.filter((gu) => gu.propKey).map((gu) => { const pc = propC(gu.guIndex); return { key: 'gu' + gu.guIndex, gid: 'gu' + gu.guIndex, label: gu.name, pid: pc.winnerPartyId, share: pc.candidates[0].share, on: () => goGu(gu.guIndex) }; }).sort((a, b) => a.label.localeCompare(b.label, 'ko')) };
+      } else {
+        const gIdx = singleGu ? 0 : nav.guIdx;
+        const gu = guC(gIdx); const pc = propC(gIdx);
+        const bb = gu.geo ? gu.geo.bbox : [0, 0, vb[0], vb[1]];
+        const pad = Math.max(bb[2] - bb[0], bb[3] - bb[1]) * 0.05 + 2, w = bb[2] - bb[0] + 2 * pad, h = bb[3] - bb[1] + 2 * pad;
+        viewBox = (bb[0] - pad).toFixed(1) + ' ' + (bb[1] - pad).toFixed(1) + ' ' + w.toFixed(1) + ' ' + h.toFixed(1);
+        labelFont = +(w / 24).toFixed(2); fontSize = +(w / 200).toFixed(3);
+        pc.dongs.forEach((dn) => { if (dn.geo) regions.push({ key: dn.key, gid: dn.key, path: dn.geo.d, result: dn, tipName: dn.dongName }); });
+        labels = pc.dongs.filter((dn) => dn.geo).map((dn) => ({ cx: dn.geo.cx, cy: dn.geo.cy, text: dn.dongName }));
+        selectedGid = contest && contest.level === 'gwpropdong' ? contest.key : null;
+        caption = gu.name + ' 비례대표 · 읍·면·동별 1위 정당 · 채도 = 격차';
+        const ps = new Set(); pc.dongs.forEach((dn) => ps.add(dn.winnerPartyId)); legendParties = [...ps];
+        list = { title: '읍·면·동', items: pc.dongs.map((dn) => ({ key: dn.key, gid: dn.key, label: dn.dongName, pid: dn.winnerPartyId, share: dn.candidates[0].share, on: () => selectDong(dn.key) })).sort((a, b) => a.label.localeCompare(b.label, 'ko')) };
+      }
+    }
+
+    const onSelect = (r) => {
+      if (nav.level === 'seoul' && !singleGu) goGu(+r.gid.slice(2));
+      else if (layer === 'dist' && (nav.level === 'gu' || (nav.level === 'seoul' && singleGu))) goDist(singleGu ? 0 : nav.guIdx, +r.gid.slice(2));
+      else selectDong(r.key);
+    };
+
+    let back = null, backLabel = '';
+    if (contest) {
+      if (contest.level === 'gwdong') { back = () => goDist(contest.guIndex, contest.sgIndex); backLabel = shortDist(distC(contest.guIndex, contest.sgIndex).sggName, guC(contest.guIndex).name); }
+      else if (contest.level === 'gwdist') { back = () => goGu(contest.guIndex); backLabel = guC(contest.guIndex).name; }
+      else if (contest.level === 'gwpropdong') { back = () => goGu(contest.guIndex); backLabel = guC(contest.guIndex).name + ' 비례'; }
+      else if (contest.level === 'gwprop') { back = goSeoul; backLabel = sidoShort(G.name) + ' 비례'; }
+    }
+
+    const curGu = nav.guIdx != null ? guC(nav.guIdx) : (contest && contest.guIndex != null ? guC(contest.guIndex) : null);
+    const curDist = (layer === 'dist' && nav.level === 'dist') ? distC(nav.guIdx, nav.sgIdx) : (contest && (contest.level === 'gwdist' || contest.level === 'gwdong') ? distC(contest.guIndex, contest.sgIndex) : null);
+    const dongSel = contest && (contest.level === 'gwdong' || contest.level === 'gwpropdong') ? contest : null;
+    const guIsCur = curGu && !curDist && !dongSel;
+
+    let rightPanel;
+    if (contest) rightPanel = <Detail contest={contest} highlightName={sel.highlight} onBack={back} backLabel={backLabel} hint={contest.level === 'gwdist' ? ((contest.seats > 1 ? '중선거구 — ' + contest.seats + '명을 뽑는 선거구라 상위 ' + contest.seats + '명이 모두 당선됐어요. ' : '') + '지도에서 읍·면·동을 클릭하면 동별 개표를 볼 수 있어요.') : contest.level === 'gwprop' ? '지도에서 읍·면·동을 클릭하면 동별 비례 득표를 볼 수 있어요.' : null} />;
+    else if (layer === 'dist' && nav.level === 'gu' && !singleGu) rightPanel = <GwangGuSummary G={G} gi={nav.guIdx} onDist={goDist} onBack={goSeoul} />;
+    else if (layer === 'prop') rightPanel = <GwangPropSummary G={G} />;
+    else rightPanel = <GwangSummary G={G} />;
+
+
+    return <>
+      <SearchBar onPick={onPick} index={G.searchIndex} placeholder={'시의원 후보 · 자치구 · 선거구 · 읍·면·동 검색  (' + sidoShort(G.name) + ')'} />
+      {SIDOS.length > 1 &&
+        <div className="sido-pills">
+          {SIDOS.map((code) => { const d = DATA.gwang.sido[code]; return <button key={code} className={code === sidoCode ? 'is-on' : ''} onClick={() => switchSido(code)}>{sidoShort(d.name)}</button>; })}
+        </div>}
+      <div className="layer-toggle">
+        <button className={layer === 'dist' ? 'is-on' : ''} onClick={() => reset('dist')}>지역구 의원 <span className="rt">{G.summary.totalSeats}석</span></button>
+        <button className={layer === 'prop' ? 'is-on' : ''} onClick={() => reset('prop')}>비례대표 <span className="rt">{G.summary.propSeatTotal}석</span></button>
+      </div>
+      <div className="grid">
+        <div className="card">
+          <div className="crumbs">
+            <button onClick={goSeoul}>{G.name} 광역의회</button>
+            {curGu && !singleGu && <><span className="sep">›</span>{guIsCur ? <span className="cur">{curGu.name}{layer === 'prop' ? ' 비례' : ''}</span> : <button onClick={() => goGu(curGu.guIndex)}>{curGu.name}{layer === 'prop' ? ' 비례' : ''}</button>}</>}
+            {layer === 'dist' && curDist && <><span className="sep">›</span>{nav.level === 'dist' && !dongSel ? <span className="cur">{shortDist(curDist.sggName, curGu.name)}</span> : <button onClick={() => goDist(curDist.guIndex, curDist.sgIndex)}>{shortDist(curDist.sggName, curGu.name)}</button>}</>}
             {dongSel && <><span className="sep">›</span><span className="cur">{dongSel.dongName}</span></>}
           </div>
           <RegionMap regions={regions} labels={labels} viewBox={viewBox} onSelect={onSelect}
             selectedGid={selectedGid} fontSize={fontSize} labelFont={labelFont} flat={false} label={caption} list={list} />
           <Legend parties={legendParties} />
         </div>
-        <div className="card">
-          {contest
-            ? <Detail contest={contest} highlightName={sel.highlight} onBack={back} backLabel={backLabel}
-                hint={contest.level==='gu' ? '지도에서 읍·면·동을 클릭하면 동별 구청장 개표를 볼 수 있어요.' : null} />
-            : <GuSummary />}
-        </div>
+        <div className="card">{rightPanel}</div>
       </div>
       <div className="footer">
-        <b>데이터</b> — 중앙선관위 <b>구·시·군의 장 선거 읍·면·동별 개표 엑셀(서울)</b>을 그대로 집계했습니다. 서울 25개 자치구 → 읍·면·동 2단계 모두 실제 수치입니다.<br/>
-        각 자치구는 자체 구청장 후보로 경쟁하며, 사전투표(관내·관외·거소)와 본투표(선거일)를 후보별로 비교할 수 있습니다.<br/>
-        행정구역 경계: 행정안전부 행정동 경계 2026.04.01 기준.
+        <b>데이터</b> — 중앙선관위 <b>시·도의회의원(광역의원) 선거 읍·면·동별 개표 엑셀</b>을 그대로 집계했습니다. 자치구 → 지역구 선거구 → 읍·면·동까지 실제 수치이며, 각 자치구의 <b>비례대표 정당 득표</b>도 함께 반영했습니다.<br />
+        <b>지역구</b>는 선거구마다 1명을 뽑는 소선거구제, <b>비례대표</b>는 정당 명부 투표입니다. 현재 <b>{G.name}</b> 기준 지역구 {G.summary.totalSeats}석 + 비례 {G.summary.propSeatTotal}석 = 총 {G.summary.grandTotal}석. 사전투표(관내·관외·거소)와 본투표(선거일)를 후보별로 비교할 수 있습니다.<br />
+        행정구역 경계: 행정안전부 행정동 경계 2026.04.01 기준. 적재된 시·도: <b>{SIDOS.map((c) => sidoShort(DATA.gwang.sido[c].name)).join(' · ')}</b> (전국 확대 예정).
       </div>
-  </>);
-}
-
-/* ====================== 시·군·구의장(전국) 탐색기 ====================== */
-function GukExplorer(){
-  const G = DATA.guk;
-  const shortById = {}; KGEO.sido.forEach(s=>{ shortById[s.id]=s.short; });
-  const sidoById = {}; G.sidoList.forEach(se=>{ sidoById[se.id]=se; });
-  const distKey = (code,si)=>'guk-'+code+'-'+si;
-  const dominant = (se)=>{ const c={}; se.districts.forEach(d=>{ c[d.winnerPartyId]=(c[d.winnerPartyId]||0)+1; }); let best='indep',bn=0; for(const p in c){ if(c[p]>bn){bn=c[p];best=p;} } return { pid:best, share: se.districts.length? bn/se.districts.length : 0 }; };
-
-  const [nav, setNav] = useState({ level:'national', code:null, si:null });
-  const [sel, setSel] = useState({ contestKey:null, highlight:null });
-
-  const goNational = ()=>{ setNav({level:'national',code:null,si:null}); setSel({contestKey:null,highlight:null}); };
-  const goSido = (code)=>{ setNav({level:'sido',code,si:null}); setSel({contestKey:null,highlight:null}); };
-  const goDistrict = (code,si)=>{ setNav({level:'district',code,si}); setSel({contestKey:distKey(code,si),highlight:null}); };
-  const selectDong = (key,hl=null)=>{ setSel({contestKey:key,highlight:hl}); };
-
-  const onPick = (item)=>{
-    if(item.kind==='region'){ if(item.level==='district') goDistrict(item.sidoId,item.sgIndex); }
-    else if(item.kind==='dong'){ setNav({level:'district',code:item.sidoId,si:item.sgIndex}); setSel({contestKey:item.contestKey,highlight:null}); }
-    else if(item.kind==='candidate'){ setNav({level:'district',code:item.sidoId,si:item.sgIndex}); setSel({contestKey:item.contestKey,highlight:item.candName}); }
-  };
-
-  const contest = sel.contestKey ? G.byKey[sel.contestKey] : null;
-  let regions=[], labels=null, viewBox='0 0 '+G.natViewBox[0]+' '+G.natViewBox[1], selectedGid=null,
-      fontSize=8, labelFont=15, flat=false, caption='', list=null, legendParties=[], staticMosaic=false, baseLayer=null;
-
-  if(nav.level==='national'){
-    /* 전국 지도는 시·도지사처럼 광역(시·도)별 단색 — 시·도 안에서 가장 많이 1위한 정당 색.
-       (선거구 모자이크는 섬·행정구 경계 때문에 빈틈이 생겨 단색 방식으로 단순화) */
-    flat=true;
-    fontSize=+(G.natViewBox[0]/120).toFixed(2); labelFont=+(KGEO.viewBox[0]/68).toFixed(2);
-    const SO=window.SIDO_OUTLINE||{};
-    const seatCount=(se)=>{ const c={}; se.districts.forEach(d=>{ c[d.winnerPartyId]=(c[d.winnerPartyId]||0)+1; }); return c; };
-    regions = G.sidoList.map(se=>{
-      const ks=KGEO.sido.find(s=>s.id===se.id); const op=(SO[se.id]||(ks?ks.path:'')); const dm=dominant(se); const cnt=seatCount(se);
-      return { key:se.id, gid:se.id, path:op, tipName:se.name,
-        result:{ winnerPartyId:dm.pid, novote:false, marginPct:dm.share, turnout:null,
-          candidates:[{ partyId:dm.pid, partyName:party(dm.pid).name, name:party(dm.pid).name, share:dm.share }],
-          aggInfo:{ pid:dm.pid, seats:cnt[dm.pid]||0, total:se.districts.length } } };
-    });
-    baseLayer=KGEO.sido.filter(s=>!sidoById[s.id]).map(s=>({ key:s.id, path:(SO[s.id]||s.path), fill:'rgba(38,46,60,.55)', stroke:'rgba(120,134,156,.22)', sw:1.1 }));
-    labels=KGEO.sido.map(s=>{ const p=nationalLabelPos[s.id]; const pos=p||pathCenter(SO[s.id]||s.path); return { cx:pos[0], cy:pos[1], text: shortById[s.id]||s.id }; });
-    selectedGid = contest ? contest.sidoId : null;
-    caption='전국 시·군·구의장 — 시·도별 최다 1위 정당 · 시·도를 클릭하면 선거구 → 읍·면·동으로';
-    const ps=new Set(); G.sidoList.forEach(se=>ps.add(dominant(se).pid)); legendParties=[...ps];
-    list={ title:'시·도', items: G.sidoList.map(se=>{ const dm=dominant(se); return { key:se.id, gid:se.id, label:se.name, pid:dm.pid, share:dm.share, on:()=>goSido(se.id) }; }).sort((a,b)=>a.label.localeCompare(b.label,'ko')) };
-  } else if(nav.level==='sido'){
-    const se=sidoById[nav.code];
-    viewBox='0 0 '+se.vb[0]+' '+se.vb[1];
-    fontSize=+(se.vb[0]/220).toFixed(3); labelFont=+(se.vb[0]/52).toFixed(2);
-    se.districts.forEach(d=>{ d.dongGeos.forEach((g,gi)=>{ regions.push({ key:d.key+'_'+gi, gid:d.key, path:g.d, result:d, fillRes:d, tipName:d.sggName }); }); });
-    labels=se.districts.filter(d=>d.geo).map(d=>({ cx:(d.labelPt||d.geo).cx, cy:(d.labelPt||d.geo).cy, text:d.sggName }));
-    selectedGid=(contest&&(contest.level==='district'))?contest.key:null;
-    caption=se.name+' · 선거구별 당선 정당 · 클릭하면 읍·면·동 개표로';
-    const ps=new Set(); se.districts.forEach(d=>ps.add(d.winnerPartyId)); legendParties=[...ps];
-    list={ title:'선거구', items: se.districts.map(d=>({ key:d.key, gid:d.key, label:d.sggName, pid:d.winnerPartyId, share: d.novote?null:d.candidates[0].share, on:()=>goDistrict(nav.code,d.sgIndex) })).sort((a,b)=>a.label.localeCompare(b.label,'ko')) };
-  } else {
-    const dist=G.byKey[distKey(nav.code,nav.si)];
-    const se=sidoById[nav.code];
-    const bb=dist.geo?dist.geo.bbox:[0,0,se.vb[0],se.vb[1]];
-    const pad=Math.max(bb[2]-bb[0],bb[3]-bb[1])*0.04+2; const w=(bb[2]-bb[0])+2*pad, h=(bb[3]-bb[1])+2*pad;
-    viewBox=(bb[0]-pad).toFixed(1)+' '+(bb[1]-pad).toFixed(1)+' '+w.toFixed(1)+' '+h.toFixed(1);
-    labelFont=+(w/30).toFixed(2); fontSize=+(w/180).toFixed(3);
-    if(dist.novote){
-      dist.dongGeos.forEach((g,gi)=>regions.push({ key:dist.key+'_'+gi, gid:dist.key, path:g.d, result:dist, fillRes:dist, tipName:dist.sggName }));
-      caption=se.name+' '+dist.sggName+' · 무투표 당선 선거구';
-      legendParties=[dist.winnerPartyId];
-    } else {
-      dist.dongs.forEach(dc=>{ if(dc.geo) regions.push({ key:dc.key, gid:dc.key, path:dc.geo.d, result:dc, tipName:dc.dongName }); });
-      labels=dist.dongs.filter(dc=>dc.geo).map(dc=>({ cx:dc.geo.cx, cy:dc.geo.cy, text:dc.dongName }));
-      selectedGid=(contest&&contest.level==='gukdong')?contest.key:null;
-      caption=se.name+' '+dist.sggName+' · 읍·면·동별 1위 · 채도 = 격차';
-      const ps=new Set(); dist.dongs.forEach(dc=>ps.add(dc.winnerPartyId)); legendParties=[...ps];
-      list={ title:'읍·면·동', items: dist.dongs.map(dc=>({ key:dc.key, gid:dc.key, label:dc.dongName, pid:dc.winnerPartyId, share:dc.candidates[0].share, on:()=>selectDong(dc.key) })).sort((a,b)=>a.label.localeCompare(b.label,'ko')) };
-    }
+    </>;
   }
 
-  const onSelect = (r)=>{
-    if(nav.level==='national'){ goSido(r.gid); }
-    else if(nav.level==='sido'){ const p=r.gid.split('-'); goDistrict(p[1],+p[2]); }
-    else if(!G.byKey[distKey(nav.code,nav.si)].novote) selectDong(r.key);
-  };
-
-  let back=null, backLabel='';
-  if(contest){
-    if(contest.level==='gukdong'){ back=()=>goDistrict(contest.sidoId,contest.sgIndex); backLabel=G.byKey[distKey(contest.sidoId,contest.sgIndex)].sggName; }
-    else if(contest.level==='district'){ back=()=>goSido(contest.sidoId); backLabel=sidoById[contest.sidoId].name; }
-  }
-
-  const curSido = nav.code!=null ? sidoById[nav.code] : (contest ? sidoById[contest.sidoId] : null);
-  const curDist = (nav.level==='district') ? G.byKey[distKey(nav.code,nav.si)]
-                : (contest && (contest.level==='district'||contest.level==='gukdong') ? G.byKey[distKey(contest.sidoId,contest.sgIndex)] : null);
-  const dongSel = contest && contest.level==='gukdong' ? contest : null;
-
-  return (<>
-      <SearchBar onPick={onPick} index={G.searchIndex} placeholder="시·군·구의장 후보 · 선거구 · 읍·면·동 검색  (예: 용인시, 이상일, 수원시 영통구)" />
-      <div className="grid">
-        <div className="card">
-          <div className="crumbs">
-            <button onClick={goNational}>대한민국</button>
-            {curSido && <><span className="sep">›</span>{nav.level==='sido' && !curDist ? <span className="cur">{curSido.name}</span> : <button onClick={()=>goSido(curSido.id)}>{curSido.name}</button>}</>}
-            {curDist && <><span className="sep">›</span>{nav.level==='district' && !dongSel ? <span className="cur">{curDist.sggName}</span> : <button onClick={()=>goDistrict(curDist.sidoId,curDist.sgIndex)}>{curDist.sggName}</button>}</>}
-            {dongSel && <><span className="sep">›</span><span className="cur">{dongSel.dongName}</span></>}
-          </div>
-          <RegionMap regions={regions} labels={labels} viewBox={viewBox} onSelect={onSelect}
-            selectedGid={selectedGid} fontSize={fontSize} labelFont={labelFont} flat={flat} label={caption}
-            list={list} staticMosaic={staticMosaic} baseLayer={baseLayer} />
-          <Legend parties={legendParties} />
-        </div>
-        <div className="card">
-          {contest
-            ? <Detail contest={contest} highlightName={sel.highlight} onBack={back} backLabel={backLabel}
-                hint={contest.level==='district' && !contest.novote ? '지도에서 읍·면·동을 클릭하면 동별 개표 결과를 볼 수 있어요.' : null} />
-            : <GukSummary />}
-        </div>
-      </div>
-      <div className="footer">
-        <b>데이터</b> — 중앙선관위 <b>구·시·군의 장 선거 읍·면·동별 개표 엑셀</b>을 그대로 집계했습니다. 전국 지도는 시·도지사처럼 <b>시·도별 최다 1위 정당</b> 색으로 칠했고, 시·도 안으로 들어가면 선거구·읍·면·동까지 실제 수치를 볼 수 있습니다.<br/>
-        용인·성남·수원·창원·고양·안산·부천·안양·화성·청주·전주·포항 등 <b>행정구로 나뉜 큰 시</b>는 하나의 시장 선거구로 통합했습니다. <b>무투표 선거구</b>(광주 서구·남구, 경기 시흥시)는 당선 정당색으로만 표시됩니다.<br/>
-        ※ 세종특별자치시·제주특별자치도는 <b>시·군·구의장 선거 자체가 없어</b> 지도에 표시되지 않습니다(회색). 행정구역 경계: 행정안전부 행정동 경계 2026.04.01 기준.
-      </div>
-  </>);
-}
-
-/* ====================== 모드 전환 래퍼 ====================== */
-function App(){
-  const [mode, setMode] = useState('gov');
-  const hasGuk = !!DATA.guk;
-  return (
-    <div className="wrap">
+  /* ====================== 모드 전환 래퍼 ====================== */
+  function App() {
+    const [mode, setMode] = useState('gov');
+    const hasGuk = !!DATA.guk;
+    const hasEdu = !!DATA.edu;
+    const hasNa = !!DATA.na;
+    const hasGwang = !!DATA.gwang;
+    const subLabel = mode === 'gov' ? '광역 → 시·군·구 → 읍·면·동' :
+    mode === 'gwang' ? '시·도 → 자치구 → 선거구 → 읍·면·동 (지역구·비례)' :
+    mode === 'edu' ? '교육감 성향 → 자치구 → 읍·면·동' :
+    mode === 'na' ? '재·보권 선거구 → 읍·면·동' :
+    '전국 선거구 → 읍·면·동';
+    return (
+      <div className="wrap">
       <div className="top">
         <div className="brand">
           <h1>2026 지방선거 개표 지도</h1>
-          <div className="sub">제9회 전국동시지방선거 · 2026.06.03 · {mode==='gov' ? '광역 → 시·군·구 → 읍·면·동' : '전국 선거구 → 읍·면·동'}</div>
+          <div className="sub">제9회 전국동시지방선거 · 2026.06.03 · {subLabel}</div>
         </div>
         <div className="demo-pill demo-pill--ok"><span className="dot"></span>실제 개표 데이터 (중앙선관위)</div>
       </div>
-      {hasGuk && (
+      {(hasGuk || hasEdu || hasNa) &&
         <div className="mode-toggle" role="tablist">
-          <button className={mode==='gov' ? 'is-on' : ''} onClick={()=>setMode('gov')}>시·도지사</button>
-          <button className={mode==='guhead' ? 'is-on' : ''} onClick={()=>setMode('guhead')}>시·군·구의장 <span className="mt-tag">전국</span></button>
+          <button className={mode === 'gov' ? 'is-on' : ''} onClick={() => setMode('gov')}>시·도지사</button>
+          {hasGwang && <button className={mode === 'gwang' ? 'is-on' : ''} onClick={() => setMode('gwang')}>광역의원 <span className="mt-tag">{DATA.gwang.order.length}시·도</span></button>}
+          <button className={mode === 'guhead' ? 'is-on' : ''} onClick={() => setMode('guhead')}>시·군·구의장 <span className="mt-tag">전국</span></button>
+          {hasEdu && <button className={mode === 'edu' ? 'is-on' : ''} onClick={() => setMode('edu')}>교육감 <span className="mt-tag">전국</span></button>}
+          {hasNa && <button className={mode === 'na' ? 'is-on' : ''} onClick={() => setMode('na')}>국회의원 재·보궐 <span className="mt-tag">14곳</span></button>}
         </div>
-      )}
-      {mode==='gov' ? <GovExplorer/> : <GukExplorer/>}
-    </div>
-  );
-}
-ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+        }
+      {mode === 'gov' ? <GovExplorer /> : mode === 'gwang' ? <GwangExplorer /> : mode === 'edu' ? <EduExplorer /> : mode === 'na' ? <NaExplorer /> : <GukExplorer />}
+    </div>);
+
+  }
+  ReactDOM.createRoot(document.getElementById('root')).render(<App />);
 })();
 </script>
 </body>
