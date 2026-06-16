@@ -1,0 +1,25 @@
+<!doctype html><html><head><meta charset="utf-8"></head><body style="margin:0;padding:0;overflow:hidden;background:#000">
+<canvas id="c" style="display:block"></canvas>
+<script>
+const B=6; // block size px
+const cv=document.getElementById('c');
+function dims(){ const W=window.innerWidth, H=window.innerHeight; const cols=Math.floor(W/B), rows=Math.floor(H/B); return {W,H,cols,rows,cap:cols*rows*3}; }
+// render a slice of bytes (Uint8Array) as RGB blocks
+window.renderSlice=function(bytes){
+  const {W,H,cols,rows}=dims(); cv.width=W; cv.height=H; cv.style.width=W+'px'; cv.style.height=H+'px';
+  const ctx=cv.getContext('2d',{alpha:false}); ctx.fillStyle='#000'; ctx.fillRect(0,0,W,H);
+  const nblk=cols*rows;
+  for(let bi=0;bi<nblk;bi++){
+    const r=bytes[bi*3]||0, g=bytes[bi*3+1]||0, b=bytes[bi*3+2]||0;
+    const cx=(bi%cols)*B, cy=Math.floor(bi/cols)*B;
+    ctx.fillStyle='rgb('+r+','+g+','+b+')'; ctx.fillRect(cx,cy,B,B);
+  }
+  return {cols,rows,cap:nblk*3};
+};
+window.dims=dims;
+// TEST pattern
+const cap0=dims().cap;
+const test=new Uint8Array(cap0); for(let i=0;i<cap0;i++) test[i]=(i*131+7)&255;
+window.__testN=cap0; window.__testInfo=window.renderSlice(test);
+document.title='blocks '+JSON.stringify(window.__testInfo);
+</script></body></html>
