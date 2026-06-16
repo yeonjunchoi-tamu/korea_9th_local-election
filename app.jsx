@@ -188,7 +188,7 @@ function RegionMap({ regions, labels, viewBox, onSelect, selectedGid, fontSize, 
             strokeWidth={o.sw || sw} strokeLinejoin="round" pointerEvents="none" />
         ))}
         {staticMosaic ? staticPaths : null}
-        {group && outlines.map((o) => (
+        {group && !staticMosaic && outlines.map((o) => (
           <path key={'base' + o.gid} d={o.path} fill={fade(party(o.pid).color, 0.14)} stroke="none" pointerEvents="none" />
         ))}
         {!staticMosaic && mosaicPaths}
@@ -208,16 +208,16 @@ function RegionMap({ regions, labels, viewBox, onSelect, selectedGid, fontSize, 
             pointerEvents="none">{l.text}</text>
         ))}
       </svg>
-      {hoverReg && hoverReg.result && (
+      {hoverReg && (hoverReg.tip || hoverReg.result) && (() => { const tr = hoverReg.tip || hoverReg.result; return (
         <div className="geomap__tip" style={{ left: mouse.x, top: mouse.y }}>
           <b>{hoverReg.tipName}</b>
-          {hoverReg.result.novote
-            ? <><span><i style={{ background: party(hoverReg.result.winnerPartyId).color }} />{party(hoverReg.result.winnerPartyId).name}</span><span className="muted">무투표 당선</span></>
-            : hoverReg.result.aggInfo
-            ? <><span><i style={{ background: party(hoverReg.result.aggInfo.pid).color }} />{party(hoverReg.result.aggInfo.pid).name} 최다</span><span className="muted">{hoverReg.result.aggInfo.total}개 선거구 중 {hoverReg.result.aggInfo.seats}곳 1위</span></>
-            : <><span><i style={{ background: party(hoverReg.result.winnerPartyId).color }} />{hoverReg.result.candidates[0].name} {pct(hoverReg.result.candidates[0].share)}</span><span className="muted">투표율 {pct(hoverReg.result.turnout)} · 격차 {pct(hoverReg.result.marginPct)}p</span></>}
+          {tr.novote
+            ? <><span><i style={{ background: party(tr.winnerPartyId).color }} />{party(tr.winnerPartyId).name}</span><span className="muted">무투표 당선</span></>
+            : tr.aggInfo
+            ? <><span><i style={{ background: party(tr.aggInfo.pid).color }} />{party(tr.aggInfo.pid).name} 최다</span><span className="muted">총 {tr.aggInfo.total}곳 중 {tr.aggInfo.seats}곳 1위</span></>
+            : <><span><i style={{ background: party(tr.winnerPartyId).color }} />{tr.candidates[0].name} {pct(tr.candidates[0].share)}</span><span className="muted">투표율 {pct(tr.turnout)} · 격차 {pct(tr.marginPct)}p</span></>}
         </div>
-      )}
+      ); })()}
       {label && <div className="carto__cap">{label}</div>}
       {list && list.items && list.items.length > 0 && (
         <div className={'rlist' + (listOpen ? '' : ' rlist--collapsed')}>
@@ -350,6 +350,10 @@ function Detail({ contest, highlightName, onBack, backLabel, hint }) {
   }
   const top = contest.candidates;
   const maxShare = top[0].share || 1;
+  const seatNames = contest.seatWinnerNames;        // 하위 구역이면 실제 의석 당선자 이름 배열
+  const electedSet = seatNames ? new Set(seatNames) : null;
+  const isElected = (c) => electedSet ? electedSet.has(c.name) : c.isWinner;
+  const showLocalTop = !!electedSet;                // 하위 구역에서만 '이 구역 1위' 태그
   return (
     <div className="detail">
       <div className="detail__head">
@@ -371,13 +375,14 @@ function Detail({ contest, highlightName, onBack, backLabel, hint }) {
       <div className="detail__sectionlabel">후보별 득표율</div>
       <div className="cands">
         {top.map((c) => (
-          <div key={c.name + c.partyId} className={'cand' + (c.isWinner ? ' cand--win' : '') + (highlightName && c.name === highlightName ? ' cand--hl' : '')}>
+          <div key={c.name + c.partyId} className={'cand' + (isElected(c) ? ' cand--win' : '') + (highlightName && c.name === highlightName ? ' cand--hl' : '')}>
             <div className="cand__row">
               <span className="cand__rank">{c.rank}</span>
               <PartyDot pid={c.partyId} size={11} />
               <span className="cand__name">{c.name}</span>
               <span className="cand__party">{pname(c)}</span>
-              {c.isWinner && <span className="cand__badge">당선</span>}
+              {isElected(c) && <span className="cand__badge">당선</span>}
+              {showLocalTop && !isElected(c) && c.rank === 1 && <span className="cand__badge cand__badge--local">이 구역 1위</span>}
               <span className="cand__share">{pct(c.share)}</span>
             </div>
             <div className="cand__track"><div className="cand__fill" style={{ width: (c.share / maxShare * 100) + '%', background: party(c.partyId).color }} /></div>
@@ -527,9 +532,137 @@ function GukSummary() {
           </div>
         </div>
       </>)}
-      <p className="hint">전국 지도는 <b>시·도별</b>로 가장 많이 1위한 정당 색을 칠했습니다. <b>시·도</b>를 클릭하면 그 안의 <b>선거구 → 읍·면·동</b>까지 들어갈 수 있어요. 검색창에서 후보·선거구도 찾을 수 있습니다.</p>
+      <p className="hint">전국 지도는 <b>읍·면·동별 1위 정당</b>을 색으로, <b>득표차</b>를 채도로 칠했습니다. <b>시·도</b>를 클릭하면 그 안의 <b>선거구 → 읍·면·동</b>까지 들어갈 수 있어요. 검색창에서 후보·선거구도 찾을 수 있습니다.</p>
     </div>
   );
 }
 
-window.UI = { SearchBar, RegionMap, Legend, Detail, NationalSummary, GuSummary, GukSummary, PartyDot, pathCenter, transformPath };
+/* ============================== 교육감(성향) 요약 패널 ============================== */
+function EduSummary() {
+  const g = DATA.edu;
+  if (!g) return null;
+  const s = g.summary;
+  const order = ['edu_jinbo', 'edu_bosu', 'edu_jungdo'];
+  const tv = s.tendVotes || {};
+  const tendTot = order.reduce((a, p) => a + (tv[p] || 0), 0) || 1;
+  const segs = order.filter((p) => s.byTendency[p]);
+  const winners = s.sidoWinners || [];
+  return (
+    <div className="detail">
+      <div className="detail__head"><div><div className="detail__type">전국 집계<span className="real-badge">실데이터</span></div><h2 className="detail__title">시·도 교육감 {s.sidoTotal}곳</h2><div className="detail__parent">제9회 전국동시지방선거 · 2026.06.03</div></div></div>
+
+      <div className="detail__sectionlabel">당선자 성향 — 시·도 수</div>
+      <div className="summarybar">
+        {segs.map((p) => <div key={p} className="summarybar__seg" style={{ flex: s.byTendency[p], background: party(p).color }}><span>{party(p).short} {s.byTendency[p]}</span></div>)}
+      </div>
+      <div className="summary__cards">
+        {segs.map((p) => (<div key={p} className="summary__card"><PartyDot pid={p} size={12} /><div><div className="summary__n">{s.byTendency[p]}곳</div><div className="summary__p">{party(p).name} 당선</div></div></div>))}
+      </div>
+
+      <div className="detail__sectionlabel">전국 성향별 득표 (진보 · 보수 · 중도)</div>
+      <div className="summarybar">
+        {order.filter((p) => tv[p]).map((p) => (
+          <div key={p} className="summarybar__seg" style={{ flex: tv[p], background: party(p).color }}>
+            <span>{party(p).short} {pct((tv[p] || 0) / tendTot, 0)}</span>
+          </div>
+        ))}
+      </div>
+      <div className="summary__cards">
+        {order.filter((p) => tv[p]).map((p) => (
+          <div key={p} className="summary__card"><PartyDot pid={p} size={12} /><div><div className="summary__n">{pct((tv[p] || 0) / tendTot, 1)}</div><div className="summary__p">{party(p).name} · {fmt(tv[p])}표</div></div></div>
+        ))}
+      </div>
+
+      <div className="detail__sectionlabel">시·도별 당선 교육감</div>
+      <div className="cands">
+        {winners.map((w) => (
+          <div key={w.id} className="cand">
+            <div className="cand__row">
+              <PartyDot pid={w.partyId} size={11} />
+              <span className="cand__name">{w.candName}</span>
+              <span className="cand__party">{w.name}</span>
+              <span className="cand__share">{pct(w.share)}</span>
+            </div>
+            <div className="cand__track"><div className="cand__fill" style={{ width: (w.share * 100) + '%', background: party(w.partyId).color }} /></div>
+          </div>
+        ))}
+      </div>
+
+      <p className="hint" style={{ marginTop: 16 }}>지도에서 <b>시·도</b>를 클릭하면 <b>시·군·구 → 읍·면·동</b>까지 성향별 1위를 파고들 수 있습니다. 후보·지역·동을 검색할 수도 있어요.<br/><b>전남·광주통합특별시</b>는 광주·전남 교육감이 별개 선거라 두 지역 후보가 함께 집계됩니다.</p>
+    </div>
+  );
+}
+
+/* ============================== 국회의원 재·보궐 요약 패널 ============================== */
+function NaSummary() {
+  const g = DATA.na;
+  if (!g) return null;
+  const s = g.summary;
+  const order = ['minju', 'power', 'jokuk', 'reform', 'jinbo', 'jayu', 'gibon', 'saemirae', 'indep'];
+  const segs = order.filter((p) => s.byParty[p]);
+  const sp = s.split;
+  let natRows = null, preT = 0, dayT = 0;
+  if (sp && (sp.pre.total || sp.day.total)) {
+    preT = sp.pre.total; dayT = sp.day.total;
+    const pids = Array.from(new Set([...Object.keys(sp.pre.byParty), ...Object.keys(sp.day.byParty)]));
+    natRows = pids.map((pid) => ({ partyId: pid, name: party(pid).name, ps: preT ? (sp.pre.byParty[pid] || 0) / preT : 0, ds: dayT ? (sp.day.byParty[pid] || 0) / dayT : 0 }))
+      .sort((a, b) => (b.ps + b.ds) - (a.ps + a.ds));
+  }
+  const all = preT + dayT || 1;
+  const Bar = ({ k }) => (
+    <div className="pdc__bar">
+      {natRows.filter((r) => r[k] > 0.006).map((r) => (
+        <div key={r.partyId} className="pdc__seg" style={{ width: (r[k] * 100) + '%', background: party(r.partyId).color }}>
+          {r[k] >= 0.13 && <span>{pct(r[k], 0)}</span>}
+        </div>
+      ))}
+    </div>
+  );
+  const swings = natRows ? natRows.filter((r) => Math.max(r.ps, r.ds) >= 0.02).slice(0, 5) : [];
+  const dl = s.districtList || [];
+  return (
+    <div className="detail">
+      <div className="detail__head"><div><div className="detail__type">재·보궐 집계<span className="real-badge">실데이터</span></div><h2 className="detail__title">국회의원 {s.total}곳</h2><div className="detail__parent">제9회 지방선거 동시 재·보궐선거 · 2026.06.03</div></div></div>
+      <div className="summarybar">
+        {segs.map((p) => <div key={p} className="summarybar__seg" style={{ flex: s.byParty[p], background: party(p).color }}><span>{party(p).short} {s.byParty[p]}</span></div>)}
+      </div>
+      <div className="summary__cards">
+        {segs.map((p) => (<div key={p} className="summary__card"><PartyDot pid={p} size={12} /><div><div className="summary__n">{s.byParty[p]}곳</div><div className="summary__p">{party(p).name}</div></div></div>))}
+      </div>
+
+      <div className="detail__sectionlabel">선거구별 당선자 ({dl.length}곳)</div>
+      <div className="cands" style={{ marginBottom: 18 }}>
+        {dl.map((w) => (
+          <div key={w.key} className="cand">
+            <div className="cand__row">
+              <PartyDot pid={w.partyId} size={11} />
+              <span className="cand__name">{w.candName}</span>
+              <span className="cand__party">{w.sido} {w.name}</span>
+              <span className="cand__share">{pct(w.share)}</span>
+            </div>
+            <div className="cand__track"><div className="cand__fill" style={{ width: (w.share * 100) + '%', background: party(w.partyId).color }} /></div>
+            <div className="cand__votes">격차 {pct(w.margin)}p · 투표율 {pct(w.turnout)}</div>
+          </div>
+        ))}
+      </div>
+
+      {natRows && (<>
+        <div className="detail__sectionlabel">사전투표 vs 본투표 · 정당별 (14곳 합산)</div>
+        <div className="pdc">
+          <div className="pdc__rowlabel"><span>사전투표</span><span>{fmt(preT)}표 ({pct(preT / all, 0)})</span></div>
+          <Bar k="ps" />
+          <div className="pdc__rowlabel"><span>본투표(선거일)</span><span>{fmt(dayT)}표 ({pct(dayT / all, 0)})</span></div>
+          <Bar k="ds" />
+          <div className="pdc__swings">
+            {swings.map((r) => { const d = r.ds - r.ps; const dir = d >= 0 ? 'up' : 'down';
+              return (<div key={r.partyId} className="pdc__swing"><span className="pdc__sname"><PartyDot pid={r.partyId} size={10} />{r.name}</span><span className="pdc__nums"><span className="muted">사전 {pct(r.ps)}</span><span className="pdc__arrow">→</span><span>본투표 {pct(r.ds)}</span><span className={'pdc__delta pdc__delta--' + dir}>{d >= 0 ? '▲' : '▼'}{pct(Math.abs(d))}p</span></span></div>);
+            })}
+          </div>
+        </div>
+      </>)}
+      <p className="hint">2026 지방선거와 <b>함께 치러진 국회의원 재·보궐선거</b> 14개 선거구입니다. 전국 지도에서 <b>색칠된 지역</b>이 보궐이 열린 곳이며, 클릭하면 <b>선거구 → 읍·면·동</b>까지 실제 개표를 볼 수 있어요.</p>
+    </div>
+  );
+}
+
+window.UI = { SearchBar, RegionMap, Legend, Detail, NationalSummary, GuSummary, GukSummary, EduSummary, NaSummary, PartyDot, pathCenter, transformPath };
